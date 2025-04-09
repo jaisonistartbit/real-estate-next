@@ -5,8 +5,10 @@ import { DownOutlined, UserOutlined } from "@ant-design/icons";
 import { BookHeart, LayoutDashboard, LogOut, MapPinHouse, Phone, TableProperties, UserRoundPen } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import AddProperty from "../add-property/AddProperty";
 export default function NavigationBar({ children }) {
     const [userClicked, setUserClicked] = useState(false)
+    const [addProperty, setAddProperty] = useState(false)
     const router = useRouter();
     return (
         <div>
@@ -30,8 +32,8 @@ export default function NavigationBar({ children }) {
                     </div>
 
                     <div className="col-span-12 lg:col-span-5 md:col-span-7 sm:col-span-12  text-center flex pt-2 justify-evenly" >
-                        <div onClick={()=>{router.push('/')}} className="text-[16px] hover:text-[17px]  text-black hover:text-orange-400 cursor-pointer hover:underline decoration-2 underline-offset-8 hover:font-[600]">
-                            Home  
+                        <div onClick={() => { router.push('/') }} className="text-[16px] hover:text-[17px]  text-black hover:text-orange-400 cursor-pointer hover:underline decoration-2 underline-offset-8 hover:font-[600]">
+                            Home
                         </div>
                         <div className="text-[16px] hover:text-[17px]  text-black hover:text-orange-400 cursor-pointer hover:underline decoration-2 underline-offset-8 hover:font-[600]">
                             Listing <DownOutlined style={{ fontSize: '10px' }} />
@@ -104,9 +106,10 @@ export default function NavigationBar({ children }) {
                                         <div className="pt-1">
                                             <MapPinHouse style={{ height: '15px', width: '15px', color: 'gray' }} />
                                         </div>
-                                        <div className="text-[14px] ">
+                                        <div className="text-[14px] " >
                                             Add property
                                         </div>
+
                                     </div>
 
                                     <div className="flex gap-3 px-3 my-3 hover:bg-orange-100 py-2 cursor-pointer">
@@ -124,7 +127,10 @@ export default function NavigationBar({ children }) {
 
                         </div>
                         <div className="col-span-4">
-                            <button className="text-orange-400 py-2 px-4 border border-orange-400  rounded-[10px] hover:bg-orange-400 hover:text-white">Add Property</button>
+                            <button className="text-orange-400 py-2 px-4 border border-orange-400  rounded-[10px] hover:bg-orange-400 hover:text-white" onClick={() => { setAddProperty(!addProperty) }}>Add Property</button>
+                            {addProperty
+                                && <AddProperty toggle={() => { setAddProperty(!addProperty) }} />
+                            }
                         </div>
                     </div>
                 </nav>
