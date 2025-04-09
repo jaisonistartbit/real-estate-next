@@ -72,7 +72,7 @@ const InputWithAddOnMultiple = ({
             let newValue = e.target.value;
             if (type === "integer") {
               newValue = newValue?.replace(/[^0-9]/g, '')
-            } 
+            }
             setValue(newValue);
 
             if (isTouched && validateHandler !== null) {
@@ -85,7 +85,7 @@ const InputWithAddOnMultiple = ({
             let newValue = value;
             if (type === "integer") {
               newValue = newValue?.replace(/[^0-9]/g, '')
-            }  
+            }
 
 
             if (type === "text") {
