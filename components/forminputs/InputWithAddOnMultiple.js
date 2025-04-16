@@ -109,7 +109,7 @@ const InputWithAddOnMultiple = ({
       </div>
       {feedbackType !== "none" && (
         <div
-          className={feedbackType + "-feedback-class  m-0 p-0 ml-1 w-100"}
+          className={feedbackType + "-feedback-class  m-0 p-0 ml-1 w-100 text-start"}
           style={{ userSelect: "none" }}
         >
           {feedbackMessage}
