@@ -1,33 +1,34 @@
+import InputTextAreaMultiple from '@/components/forminputs/InputTextAreaMultiple';
 import InputWithAddOnMultiple from '@/components/forminputs/InputWithAddOnMultiple';
 import useInputComponent from '@/hooks/useInputComponent';
 import React from 'react'
 
-const d = () => {
-    const Location = useInputComponent();
-    const LocationValidater = (value) => {
+const D = () => {
+    const PropertyDescription = useInputComponent();
+    const PropertyDescriptionValidater = (value) => {
         if (value === "" || !value) {
-            Location.setFeedbackMessage("Field required!");
-            Location.setMessageType("error");
+            PropertyDescription.setFeedbackMessage("Field required!");
+            PropertyDescription.setMessageType("error");
             return false;
         }
-        Location.setFeedbackMessage("");
-        Location.setMessageType("none");
+        PropertyDescription.setFeedbackMessage("");
+        PropertyDescription.setMessageType("none");
         return true;
     };
     return (
         <div>
             <InputWithAddOnMultiple
-                label="Location"
+                label="Owner Contact"
                 placeholder=""
                 className="loginInputs"
-                value={Location.enteredValue}
-                setValue={Location.setEnteredValue}
-                setIsTouched={Location.setIsTouched}
-                feedbackMessage={Location.feedbackMessage}
-                feedbackType={Location.messageType}
-                isTouched={Location.isTouched}
-                validateHandler={LocationValidater}
-                reset={Location.reset}
+                value={PropertyDescription.enteredValue}
+                setValue={PropertyDescription.setEnteredValue}
+                setIsTouched={PropertyDescription.setIsTouched}
+                feedbackMessage={PropertyDescription.feedbackMessage}
+                feedbackType={PropertyDescription.messageType}
+                isTouched={PropertyDescription.isTouched}
+                validateHandler={PropertyDescriptionValidater}
+                reset={PropertyDescription.reset}
                 isRequired={true}
                 disabled={false}
                 onBlurAction={(e) => {
@@ -36,7 +37,32 @@ const d = () => {
                 extraProps={{ style: { height: "32px", width: '100%' } }}
             />
         </div>
+
+<div>
+<InputTextAreaMultiple
+    label="Property Description"
+    placeholder=""
+    className="loginInputs"
+    value={PropertyDescription.enteredValue}
+    setValue={PropertyDescription.setEnteredValue}
+    setIsTouched={PropertyDescription.setIsTouched}
+    feedbackMessage={PropertyDescription.feedbackMessage}
+    feedbackType={PropertyDescription.messageType}
+    isTouched={PropertyDescription.isTouched}
+    validateHandler={PropertyDescriptionValidater}
+    reset={PropertyDescription.reset}
+    isRequired={true}
+    disabled={false}
+    minLength={3}
+    onBlurAction={(e) => {
+        // blurInputAction(e, "Transport_Equipment_ID");
+    }}
+    extraProps={{ style: { height: "32px", width: '100%' } }}
+/>
+</div>
+
+InputSelect2
     )
 }
 
-export default d
+export default D
