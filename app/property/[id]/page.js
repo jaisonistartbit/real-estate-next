@@ -3,7 +3,7 @@ import NavigationBar from "@/components/users/landing_page/navbar_component/Navi
 import PropertyDetailPage from "@/components/users/property-detail-page/PropertyDetailPage";
 
 export default async function PropertyDetails({ params }) {
-  const propertyId = params?.id;
+  const propertyId = params?.id; 
 
 
   const res = await fetch('http://localhost:3000/api/graphql', {
