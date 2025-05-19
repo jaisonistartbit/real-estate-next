@@ -3,16 +3,16 @@ import MainBanner from "../components/users/landing_page/main-banner/MainBanner"
 import FlatListing from "../components/users/landing_page/flats-listing/FlatListing";
 import Footer from "../components/users/landing_page/footer/Footer";
 import NearCities from "../components/users/landing_page/neighbour-cities/NearCities";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, Bounce, toast } from "react-toastify";
+
 export default function LandingPage() {
   return (
-    <div className=" ">
-      <NavigationBar>
-        <MainBanner />
-        <FlatListing />
-        <NearCities />
-        <Footer />
-      </NavigationBar>
+    <div className="">
+      <NavigationBar />
+      <MainBanner />
+      <FlatListing />
+      <NearCities />
+      <Footer />
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -25,6 +25,11 @@ export default function LandingPage() {
         draggable
         pauseOnHover
         theme="colored"
+        transition={Bounce}
+        stacked
+        style={{
+          zIndex: 999999,
+        }}
       />
     </div>
   );

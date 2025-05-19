@@ -1,6 +1,6 @@
 
 import PropTypes from "prop-types"
-const CityCardView = ({ imageUrl, cityName }) => {
+const CityCardView = ({ imageUrl, cityName, propertyCount }) => {
 
     return (
 
@@ -15,7 +15,7 @@ const CityCardView = ({ imageUrl, cityName }) => {
                     {cityName}
                 </div>
                 <div>
-                    <button className="text-white bg-[#b7b7b740]   py-1 px-3 text-[14px] rounded-[10px] hover:bg-orange-400 hover:text-white" > 2,491 Properties &gt;</button>
+                    <button className="text-white bg-[#b7b7b740]   py-1 px-3 text-[14px] rounded-[10px] hover:bg-orange-400 hover:text-white" > {propertyCount} Properties &gt;</button>
 
 
                 </div>

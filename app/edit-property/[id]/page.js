@@ -1,16 +1,17 @@
+import EditPropertyPage from "@/components/users/edit-property-page/EditPropertyPage";
 import Footer from "@/components/users/landing_page/footer/Footer";
 import NavigationBar from "@/components/users/landing_page/navbar_component/NavigationBar";
 import PropertyDetailPage from "@/components/users/property-detail-page/PropertyDetailPage";
 
 export default async function PropertyDetails({ params }) {
-  const propertyId = params?.id;
+    const propertyId = params?.id;
 
 
-  const res = await fetch('http://localhost:3000/api/graphql', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      query: `
+    const res = await fetch('http://localhost:3000/api/graphql', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            query: `
         query GetPropertyById($id: ID!) {
           getPropertyById(id: $id) {
             id
@@ -34,20 +35,20 @@ export default async function PropertyDetails({ params }) {
           }
         }
       `,
-      variables: { id: propertyId }
-    }),
-    cache: 'no-store'
-  });
+            variables: { id: propertyId }
+        }),
+        cache: 'no-store'
+    });
 
-  const json = await res.json();
-  const property = json?.data?.getPropertyById;
- 
+    const json = await res.json();
+    const property = json?.data?.getPropertyById;
+    console.log(property);
 
-  return (
-    <>
-      <NavigationBar />
-      <PropertyDetailPage property={property} />
-      <Footer />
-    </>
-  );
+    return (
+        <>
+            <NavigationBar />
+            <EditPropertyPage property={property} />
+            <Footer />
+        </>
+    );
 }

@@ -13,14 +13,14 @@ const CardView = ({ item, key }) => {
 
 
     <div onClick={() => {
-      router.push(`/property/1`);
+      router.push(`/property/${item?.id}`);
 
-    }} key={key} style={{
+    }} key={item?.id} style={{
       borderStyle: "solid",
       borderColor: " #e5e7eb"
     }} className="border rounded-lg overflow-hidden cursor-pointer" >
       <div
-        style={{ backgroundImage: `url(${item})` }}
+        style={{ backgroundImage: `url(${item?.property_banner_image})` }}
         className="h-[250px] bg-center bg-no-repeat bg-cover image-div"
       >
         <div className="h-full w-full bg-black/50  card-hidden relative pt-4 px-3">
@@ -55,29 +55,29 @@ const CardView = ({ item, key }) => {
 
       <div className="px-3 py-2">
         <h1 className="text-[18px] text-gray-800 font-[600] text-start" style={{ wordSpacing: '2px' }}>
-          Elegant studio flat
+          {item?.name}
         </h1>
 
         <p className="flex my-2 text-[12px] text-gray-500">
           <span className="text-start me-1 pt-[1px]">
             <MapPin className="h-[14px] w-[14px]" />
           </span>
-          <span>102, Chitrakoot, Veshali, Jaipur, Raj</span>
+          <span>{item?.location}</span>
         </p>
 
         <p className="mb-3 text-start">
-          <span>3 <span className="text-gray-500">Bed</span></span>
-          <span className="mx-3">3 <span className="text-gray-500">Bath</span></span>
-          <span>4,043 <span className="text-gray-500">Sqft</span></span>
+          <span>{item?.total_rooms} <span className="text-gray-500">Bed</span></span>
+          <span className="mx-3">{item?.total_bathroom} <span className="text-gray-500">Bath</span></span>
+          <span>{item?.dimension} <span className="text-gray-500">Sqft</span></span>
         </p>
 
-        <hr  style={{
-      borderStyle: "solid",
-      borderColor: " #e5e7eb"
-    }} />
+        <hr style={{
+          borderStyle: "solid",
+          borderColor: " #e5e7eb"
+        }} />
 
         <div className="flex justify-between mt-3">
-          <div className="text-[14px] font-[600] text-orange-400">$ 8600</div>
+          <div className="text-[14px] font-[600] text-orange-400">₹ {item?.price}</div>
 
           <div className="flex text-[14px]">
             <span className="pt-1">

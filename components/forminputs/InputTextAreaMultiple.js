@@ -58,7 +58,7 @@ const InputTextAreaMultiple = ({
           autoComplete="off"
           id={id ?? uuidName}
           name={name ?? uuidName}
-          className={`${hasAddOn?.left && "has_left_add_on"} ${
+          className={` p-3 ${hasAddOn?.left && "has_left_add_on"} ${
             hasAddOn?.right && "has_right_add_on"
           } ${className} input-background-color-default`}
           type="textarea"

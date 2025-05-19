@@ -57,7 +57,7 @@ const InputWithAddOnMultiple = ({
           autoComplete="off"
           id={id ?? uuidName}
           name={name ?? uuidName}
-          className={`InputWithAddOnMultiple_input ${hasAddOn?.left && "has_left_add_on"
+          className={`InputWithAddOnMultiple_input p-3 ${hasAddOn?.left && "has_left_add_on"
             } ${hasAddOn?.right && "has_right_add_on"
             } ${className} input-background-color-default input-with-add-on-default `}
           type={type === "integer" ? "number" : type}

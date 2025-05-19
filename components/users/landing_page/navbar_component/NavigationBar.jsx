@@ -1,145 +1,184 @@
 "use client"
 import PropTypes from "prop-types";
-import './NavigationBarCss.css'
-import { DownOutlined, UserOutlined } from "@ant-design/icons";
-import { BookHeart, LayoutDashboard, LogOut, MapPinHouse, Phone, TableProperties, UserRoundPen } from "lucide-react";
-import { useState } from "react";
+import './NavigationBarCss.css';
+import { DownOutlined, UserOutlined, MenuOutlined } from "@ant-design/icons";
+import {
+    LogOut,
+    MapPinHouse,
+    Phone,
+    TableProperties,
+    UserRoundPen
+} from "lucide-react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import AddProperty from "../add-property/AddProperty";
+
 export default function NavigationBar({ children }) {
-    const [userClicked, setUserClicked] = useState(false)
-    const [addProperty, setAddProperty] = useState(false)
+    const [userClicked, setUserClicked] = useState(false);
+    const [addProperty, setAddProperty] = useState(false);
+    const [drawerOpen, setDrawerOpen] = useState(false);
     const router = useRouter();
+    const userMenuRef = useRef(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+                setUserClicked(false);
+            }
+        };
+
+        if (userClicked) {
+            document.addEventListener("mousedown", handleClickOutside);
+        } else {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [userClicked]);
+
+    useEffect(() => {
+        document.body.style.overflow = drawerOpen ? 'hidden' : '';
+    }, [drawerOpen]);
+
     return (
-        <div>
-            <div>
-                <nav className="  grid grid-cols-12      px-5 py-2">
-
-                    <div className="col-span-12 lg:col-span-3 md:col-span-5 sm:col-span-12 grid grid-cols-10" >
-                        <div className="col-span-2 pt-[2px] " >
-                            <img src="/svgs/logo.svg " alt="" className="h-[30px] w-[30px] m-auto" />
-                        </div>
-                        <div className="col-span-3 font-[700] " >
-                            <h1 className="mb-0">
-                                HOMIES
-                            </h1>
-
-                            <p className="text-gray-400 text-[11px] font-[400] tracking-[2px] mt-0">
-                                Real Estate
-                            </p>
-
+        <div className="bg-white border-b border-gray-100 shadow-sm sticky top-0 z-50">
+            <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 py-2">
+                {/* Left side: Drawer icon + Logo */}
+                <div className="flex items-center gap-3">
+                    {/* Mobile Menu Button */}
+                    <div className="block lg:hidden">
+                        <MenuOutlined onClick={() => setDrawerOpen(true)} className="text-lg cursor-pointer" />
+                    </div>
+                    {/* Logo */}
+                    <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push('/')}>
+                        <img src="/svgs/logo.svg" alt="logo" className="h-[30px] w-[30px]" />
+                        <div>
+                            <h1 className="text-xl font-bold text-orange-500">HOMIES</h1>
+                            <p className="text-[10px] font-bold ps-1 text-gray-400 tracking-wide uppercase">Real Estate</p>
                         </div>
                     </div>
+                </div>
 
-                    <div className="col-span-12 lg:col-span-5 md:col-span-7 sm:col-span-12  text-center flex pt-2 justify-evenly" >
-                        <div onClick={() => { router.push('/') }} className="text-[16px] hover:text-[17px]  text-black hover:text-orange-400 cursor-pointer hover:underline decoration-2 underline-offset-8 hover:font-[600]">
-                            Home
-                        </div>
-                        <div className="text-[16px] hover:text-[17px]  text-black hover:text-orange-400 cursor-pointer hover:underline decoration-2 underline-offset-8 hover:font-[600]">
-                            Listing <DownOutlined style={{ fontSize: '10px' }} />
-                        </div>
-                        <div className="text-[16px] hover:text-[17px]  text-black hover:text-orange-400 cursor-pointer hover:underline decoration-2 underline-offset-8 hover:font-[600]">
-                            Property <DownOutlined style={{ fontSize: '10px' }} />
-                        </div>
-                        <div className="text-[16px] hover:text-[17px]  text-black hover:text-orange-400 cursor-pointer hover:underline decoration-2 underline-offset-8 hover:font-[600]">
-                            Pages <DownOutlined style={{ fontSize: '10px' }} />
-                        </div>
-                        <div className="text-[16px] hover:text-[17px]  text-black hover:text-orange-400 cursor-pointer hover:underline decoration-2 underline-offset-8 hover:font-[600]">
-                            Blog <DownOutlined style={{ fontSize: '10px' }} />
-                        </div>
-                        <div className="text-[16px] hover:text-[17px]  text-black hover:text-orange-400 cursor-pointer hover:underline decoration-2 underline-offset-8 hover:font-[600]">
-                            Contact
-                        </div>
+                {/* Desktop Links */}
+                <div className="hidden lg:flex gap-6    text-sm font-medium text-gray-700">
+                    <div
+
+                        onClick={() => router.push("/")}
+                        className="cursor-pointer text-lg hover:text-orange-500 flex items-center gap-1 hover:border-b-4 hover:border-orange-400"
+                    >
+                        Home
+                        {/* {text !== "Home" && <DownOutlined style={{ fontSize: '10px' }} />} */}
+                    </div>
+
+                    <div
+
+                        onClick={() => router.push("/")}
+                        className="cursor-pointer text-lg hover:text-orange-500 flex items-center gap-1 hover:border-b-4 hover:border-orange-400"
+                    >
+                        Listing
 
                     </div>
 
-                    <div className="col-span-12 lg:col-span-4 md:col-span-6 sm:col-span-12  text-center grid grid-cols-12" >
-                        <div className="col-span-4 pt-2 col-start-3 flex">
-                            <Phone style={{ color: 'rgb(251 146 60)', height: '18px', marginTop: '3px' }} /> <span className="text-black font-[500]">(603) 555-0123</span>
-                        </div>
+                    <div
 
-                        <div className="col-span-2   relative">
+                        onClick={() => router.push("/properties")}
+                        className="cursor-pointer text-lg hover:text-orange-500 flex items-center gap-1 hover:border-b-4 hover:border-orange-400"
+                    >
+                        Property
 
-                            <button onClick={() => { setUserClicked(!userClicked) }} className="   px-2 py-2 border border-gray-200 rounded-[10px]">
-                                <UserOutlined />
-                            </button>
-                            {
-                                userClicked &&
-                                <div className="w-[220px] absolute bg-white top-[60px] left-1/2 translate-x-[-50%] rounded-lg  py-1">
-                                    <div className="flex gap-3 px-3 my-3 hover:bg-orange-100 py-2 cursor-pointer">
-                                        <div className="pt-1">
-                                            <LayoutDashboard style={{ height: '15px', width: '15px', color: 'gray' }} />
-                                        </div>
-                                        <div className="text-[14px] ">
-                                            Dashboards
-                                        </div>
-                                    </div>
-                                    <div className="flex gap-3 px-3 my-3 hover:bg-orange-100 py-2 cursor-pointer">
-                                        <div className="pt-1">
-                                            <TableProperties style={{ height: '15px', width: '15px', color: 'gray' }} />
-                                        </div>
-                                        <div className="text-[14px] ">
-                                            My Properties
-                                        </div>
-                                    </div>
+                    </div>
 
-                                    <div className="flex gap-3 px-3 my-3 hover:bg-orange-100 py-2 cursor-pointer">
-                                        <div className="pt-1">
-                                            <BookHeart style={{ height: '15px', width: '15px', color: 'gray' }} />
-                                        </div>
-                                        <div className="text-[14px] ">
-                                            My Favourites (1)
-                                        </div>
-                                    </div>
+                </div>
 
+                {/* Right Side: Phone, Add, User */}
+                <div className="flex items-center gap-4">
+                    <div className="hidden lg:flex items-center gap-2 text-lg text-gray-700">
+                        <Phone style={{ color: 'rgb(251 146 60)', height: '18px' }} />
+                        <span>(603) 555-0123</span>
+                    </div>
+                    <div className="hidden lg:block">
+                        <button
+                            className="text-orange-400 py-2 px-4 border border-orange-400 rounded-[10px] hover:bg-orange-400 hover:text-white  cursor-pointer"
+                            onClick={() => setAddProperty(!addProperty)}
+                        >
+                            Add Property
+                        </button>
+                    </div>
+                    <div className="relative" ref={userMenuRef}>
+                        <button onClick={() => setUserClicked(!userClicked)} className="px-3 py-2 border border-gray-200 rounded-lg hover:bg-gray-100 cursor-pointer">
+                            <UserOutlined className="text-gray-600" />
+                        </button>
 
-                                    <div className="flex gap-3 px-3 my-3 hover:bg-orange-100 py-2 cursor-pointer">
-                                        <div className="pt-1">
-                                            <UserRoundPen style={{ height: '15px', width: '15px', color: 'gray' }} />
-                                        </div>
-                                        <div className="text-[14px] ">
-                                            My Profile
-                                        </div>
-                                    </div>
+                        {userClicked && (
+                            <div className="absolute right-0 mt-3 w-52 bg-white border border-gray-100 rounded-md shadow-lg py-1 z-50">
+                                <DropdownItem icon={<TableProperties />} label="My Properties" onClick={() => router.push('/my-properties')} />
+                                <DropdownItem icon={<UserRoundPen />} label="My Profile" />
+                                <DropdownItem icon={<MapPinHouse />} label="Add property" onClick={() => setAddProperty(!addProperty)} />
+                                <DropdownItem icon={<LogOut />} label="Logout" />
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </nav>
 
-                                    <div className="flex gap-3 px-3 my-3 hover:bg-orange-100 py-2 cursor-pointer">
-                                        <div className="pt-1">
-                                            <MapPinHouse style={{ height: '15px', width: '15px', color: 'gray' }} />
-                                        </div>
-                                        <div className="text-[14px] " >
-                                            Add property
-                                        </div>
-
-                                    </div>
-
-                                    <div className="flex gap-3 px-3 my-3 hover:bg-orange-100 py-2 cursor-pointer">
-                                        <div className="pt-1">
-                                            <LogOut style={{ height: '15px', width: '15px', color: 'gray' }} />
-                                        </div>
-                                        <div className="text-[14px] ">
-                                            Logout
-                                        </div>
-                                    </div>
-
-                                </div>
-                            }
-
-
-                        </div>
-                        <div className="col-span-4">
-                            <button className="text-orange-400 py-2 px-4 border border-orange-400  rounded-[10px] hover:bg-orange-400 hover:text-white" onClick={() => { setAddProperty(!addProperty) }}>Add Property</button>
-                            {addProperty
-                                && <AddProperty toggle={() => { setAddProperty(!addProperty) }} />
-                            }
+            {/* Mobile Drawer */}
+            {drawerOpen && (
+                <div className="fixed inset-0 z-50 bg-black bg-opacity-30" onClick={() => setDrawerOpen(false)}>
+                    <div className="w-64 bg-white h-full shadow-lg pt-8 px-6 border-r border-gray-200" onClick={(e) => e.stopPropagation()}>
+                        <h2 className="text-lg font-semibold text-orange-500 mb-4">Menu</h2>
+                        {['Home', 'Listing', 'Property'].map((text, idx) => (
+                            <div
+                                key={idx}
+                                onClick={() => {
+                                    if (text === "Home") router.push("/");
+                                    setDrawerOpen(false);
+                                }}
+                                className="py-2 px-2 text-gray-700 hover:text-orange-500 cursor-pointer"
+                            >
+                                {text}
+                            </div>
+                        ))}
+                        <div className="py-2 px-2 text-gray-700">(603) 555-0123</div>
+                        <div
+                            onClick={() => {
+                                setAddProperty(true);
+                                setDrawerOpen(false);
+                            }}
+                            className="py-2 px-2 text-gray-700 hover:text-orange-500 cursor-pointer"
+                        >
+                            Add Property
                         </div>
                     </div>
-                </nav>
-            </div>
+                </div>
+            )}
+
+            {addProperty && (
+                <AddProperty isOpen={addProperty} closeModal={setAddProperty} />
+            )}
+
             <div>{children}</div>
         </div>
     );
 }
 
+const DropdownItem = ({ icon, label, onClick }) => (
+    <div
+        onClick={onClick}
+        className="flex items-center gap-3 px-3 py-2 hover:bg-orange-100 cursor-pointer transition-all"
+    >
+        <span className="text-gray-500 text-[16px]">{icon}</span>
+        <span className="text-sm text-gray-700">{label}</span>
+    </div>
+);
+
+DropdownItem.propTypes = {
+    icon: PropTypes.element.isRequired,
+    label: PropTypes.string.isRequired,
+    onClick: PropTypes.func
+};
+
 NavigationBar.propTypes = {
-    children: PropTypes.node.isRequired, // This validates that children should be a React node
+    children: PropTypes.node.isRequired,
 };

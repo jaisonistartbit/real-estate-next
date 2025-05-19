@@ -72,27 +72,27 @@ export default function Footer() {
                             </h6>
                             <p className="mb-4">
                                 <a href={'/'} className=" text-[14px]  flex  text-white hover:text-orange-400"
-                                ><ChevronRight className="h-[22px] w-[19px] pt-1" />Contact</a>
+                                ><ChevronRight className="h-[22px] w-[19px] " />Contact</a>
                             </p>
                             <p className="mb-4">
                                 <a href={'/'} className=" text-[14px]  flex  text-white hover:text-orange-400"
-                                ><ChevronRight className="h-[22px] w-[19px] pt-1" />Why choose us?</a>
+                                ><ChevronRight className="h-[22px] w-[19px] " />Why choose us?</a>
                             </p>
                             <p className="mb-4">
                                 <a href={'/'} className=" text-[14px]  flex  text-white hover:text-orange-400"
-                                ><ChevronRight className="h-[22px] w-[19px] pt-1" />Customer reviews</a>
+                                ><ChevronRight className="h-[22px] w-[19px] " />Customer reviews</a>
                             </p>
                             <p className="mb-4">
                                 <a href={'/'} className=" text-[14px]  flex  text-white hover:text-orange-400"
-                                ><ChevronRight className="h-[22px] w-[19px] pt-1" />Our team</a>
+                                ><ChevronRight className="h-[22px] w-[19px] " />Our team</a>
                             </p>
                             <p className="mb-4">
                                 <a href={'/'} className=" text-[14px]  flex  text-white hover:text-orange-400"
-                                ><ChevronRight className="h-[22px] w-[19px] pt-1" />Careers with reality</a>
+                                ><ChevronRight className="h-[22px] w-[19px] " />Careers with reality</a>
                             </p>
                             <p className="mb-4">
                                 <a href={'/'} className=" text-[14px]  flex  text-white hover:text-orange-400"
-                                ><ChevronRight className="h-[22px] w-[19px] pt-1" />Work with Us</a>
+                                ><ChevronRight className="h-[22px] w-[19px] " />Work with Us</a>
                             </p>
                         </div>
                         {/* <!-- Useful links section --> */}
@@ -134,27 +134,27 @@ export default function Footer() {
                             </h6>
                             <p className="mb-4">
                                 <a href={'/'} className=" text-[14px] flex  text-white hover:text-orange-400"
-                                ><ChevronRight className="h-[22px] w-[19px] pt-1" />Terms of use</a>
+                                ><ChevronRight className="h-[22px] w-[19px] " />Terms of use</a>
                             </p>
                             <p className="mb-4">
                                 <a href={'/'} className=" text-[14px] flex  text-white hover:text-orange-400"
-                                ><ChevronRight className="h-[22px] w-[19px] pt-1" />Privacy policy</a>
+                                ><ChevronRight className="h-[22px] w-[19px] " />Privacy policy</a>
                             </p>
                             <p className="mb-4">
                                 <a href={'/'} className=" text-[14px] flex  text-white hover:text-orange-400"
-                                ><ChevronRight className="h-[22px] w-[19px] pt-1" /> Our services</a>
+                                ><ChevronRight className="h-[22px] w-[19px] " /> Our services</a>
                             </p>
                             <p className="mb-4">
                                 <a href={'/'} className=" text-[14px] flex  text-white hover:text-orange-400"
-                                ><ChevronRight className="h-[22px] w-[19px] pt-1" />Contact support</a>
+                                ><ChevronRight className="h-[22px] w-[19px] " />Contact support</a>
                             </p>
                             <p className="mb-4">
                                 <a href={'/'} className=" text-[14px] flex  text-white hover:text-orange-400"
-                                ><ChevronRight className="h-[22px] w-[19px] pt-1" /> Pricing plan</a>
+                                ><ChevronRight className="h-[22px] w-[19px] " /> Pricing plan</a>
                             </p>
                             <p className="mb-4">
                                 <a href={'/'} className=" text-[14px] flex  text-white hover:text-orange-400"
-                                ><ChevronRight className="h-[22px] w-[19px] pt-1" />Faqs</a>
+                                ><ChevronRight className="h-[22px] w-[19px] " />Faqs</a>
                             </p>
                         </div>
                         <div className="">
@@ -163,7 +163,7 @@ export default function Footer() {
                                 Newsletter
                             </h6>
                             <p className="text-[14px] text-white mb-3">Sign up to recieve the latest article</p>
-                            <input placeholder="your email address" className="w-[100%] py-2 bg-transparent border border-1xl rounded-lg px-3 mb-2">
+                            <input placeholder="your email address" className="w-[100%] py-2 bg-transparent border border-1xl rounded-lg px-3 mb-2 placeholder:text-gray-400">
                             </input>
                             <button className="bg-orange-400 text-[16px] text-white font-[600]  w-[100%]   py-3 rounded-lg   text-center hover:border  hover:border-orange-400 hover:text-orange-400 hover:bg-white">Subscribe </button>
                             <div className="text-gray-400 cursor-pointer text-[13px]">

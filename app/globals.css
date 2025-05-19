@@ -96,3 +96,9 @@ div:has(> .expand-multiple-select-dropdown [aria-expanded="true"]) {
 .dropdown-container {
   overflow: visible;
 }
+
+
+/* This will override the z-index for top-right position */
+.Toastify__toast-container--top-right {
+  z-index: 9999 !important;
+}
