@@ -6,7 +6,7 @@ export default async function PropertyDetails({ params }) {
   const propertyId = params?.id; 
 
 
-  const res = await fetch('http://localhost:3000/api/graphql', {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_GRAPHQL_API}/graphql`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({

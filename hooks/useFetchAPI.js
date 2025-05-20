@@ -104,7 +104,7 @@ const useFetchAPI = (
     setFetching(false);
     setError(null);
   };
-
+// NEXT_PUBLIC_GRAPHQL_API
   const execute = async (newProps) => {
     setFetching(true);
     progressBarStart();
@@ -112,7 +112,7 @@ const useFetchAPI = (
       newProps?.url === undefined || newProps?.url === null
         ? url
         : newProps?.url;
-    let fullurl = fullURL ?? process.env.REACT_APP_API_URL + newurl;
+    let fullurl = fullURL ?? process.env.NEXT_PUBLIC_GRAPHQL_API + newurl;
     let tokenHeader = {};
     if (authRequired) {
       tokenHeader.Authorization = `Bearer ${APIKey}`;

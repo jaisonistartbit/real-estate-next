@@ -6,7 +6,7 @@ import MyPropertyListing from "@/components/users/my-property-page/MyPropertyLis
 export default async function MyProperties() {
     // const userId = cookies().get("user_id")?.value || "";
 
-    const res = await fetch("http://localhost:3000/api/graphql", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_GRAPHQL_API}/graphql`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

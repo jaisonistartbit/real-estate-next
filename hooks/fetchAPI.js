@@ -63,7 +63,7 @@ const fetchAPI = async (
     }
   };
   progressBarStart();
-  let fullurl = fullURL ?? process.env.REACT_APP_API_URL + url;
+  let fullurl = fullURL ?? process.env.NEXT_PUBLIC_GRAPHQL_API + url;
   let tokenHeader = { ...headers, method: method };
   if (APIKey) {
     tokenHeader.Authorization = `Bearer ${APIKey}`;
