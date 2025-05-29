@@ -10,7 +10,8 @@ import { useState } from "react";
 import InputTextAreaMultiple from "@/components/forminputs/InputTextAreaMultiple";
 // import { InputSelect2 } from "@/components/forminputs/Select/InputSelect";
 import { Modal } from "@/components/modal";
-
+import ToastNotification from "@/components/alerts/ToastNotification";
+import { useToast } from '@/components/alerts/ToastContext';
 const ADD_PROPERTY = gql`
   mutation AddProperty(
     $name: String!
@@ -74,8 +75,8 @@ const ADD_PROPERTY = gql`
 
 const AddProperty = ({ isOpen, toggle, closeModal }) => {
   if (!isOpen) return null;
-
-
+  const { showToast } = useToast();
+  const [showToasts, setShowToast] = useState(false);
   const [BannerImage, setbannerImage] = useState(null)
   const [PropertyVideo, setPropertyVideo] = useState(null)
   const [PropertyImages, setPropertyImages] = useState([])
@@ -332,16 +333,14 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
           user_id: "cf728789-92d2-4d26-82e0-6c2018fb9c86"
         }
       });
-      // (PropertyImages ?? []).map((item) => { return item?.name }), PropertyVideo?.[0]?.name, BannerImage?.[0]?.name
-      // ✅ Success log or toast
+      showToast('Property added successfully.', 'success', 3000)
+
       if (data) {
         closeModal()
       }
-      NotificationAlert("success", "Property added successfully!");
-      // Optionally reset form or close modal
     } catch (error) {
       // ❌ Error log or toast
-      NotificationAlert("error", "Failed to add property.");
+      showToast('Error occured while adding property', 'error', 3000)
     }
 
 
@@ -356,6 +355,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
       }}
       className="max-w-[900px] m-4  "
     >
+
       <div className="w-full p-4 lg:p-11   overflow-y-auto no-scrollbar">
 
         <h2 className="text-xl text-center  font-[700] "><span className=" border-orange-400  border-b-3 pb-2">Add Property</span></h2>
