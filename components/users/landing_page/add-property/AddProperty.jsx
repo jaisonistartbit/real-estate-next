@@ -334,6 +334,9 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
       });
       // (PropertyImages ?? []).map((item) => { return item?.name }), PropertyVideo?.[0]?.name, BannerImage?.[0]?.name
       // ✅ Success log or toast
+      if (data) {
+        closeModal()
+      }
       NotificationAlert("success", "Property added successfully!");
       // Optionally reset form or close modal
     } catch (error) {
@@ -355,7 +358,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
     >
       <div className="w-full p-4 lg:p-11   overflow-y-auto no-scrollbar">
 
-        <h2 className="text-xl  font-[700] "><span className=" border-orange-400  border-b-3 pb-2">Add Property</span></h2>
+        <h2 className="text-xl text-center  font-[700] "><span className=" border-orange-400  border-b-3 pb-2">Add Property</span></h2>
 
         {
           (uploadingFileFetch) ?
