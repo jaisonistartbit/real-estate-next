@@ -7,11 +7,15 @@ import { ToastContainer, Bounce, toast } from "react-toastify";
 
 export default function LandingPage() {
   return (
-    <div className="">
+    <div className=" relative  ">
       <NavigationBar />
-      <MainBanner />
-      <FlatListing />
-      <NearCities />
+      <div className=" ">
+
+        <MainBanner />
+        <FlatListing />
+        <NearCities />
+      </div>
+
       <Footer />
       <ToastContainer
         position="top-right"

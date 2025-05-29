@@ -3,10 +3,10 @@ import { ChevronRight, Mail, Phone } from "lucide-react";
 export default function Footer() {
     return (
         <footer
-            className="bg-gray-900 text-center text-neutral-600 dark:bg-neutral-600 dark:text-neutral-200 lg:text-left">
-            <div className=" container mx-auto">
+            className="bg-gray-900 text-center text-neutral-600 dark:bg-neutral-600 dark:text-neutral-200 lg:text-left  ">
+            <div className=" container mx-auto  ">
 
-                <div style={{borderBottom:'1px solid gray'}}
+                <div style={{ borderBottom: '1px solid gray' }}
                     className="block sm:flex md:flex sm:flex items-center justify-center    border-neutral-200 p-6 dark:border-neutral-500 lg:justify-between  ">
                     <div className="lg:mr-12 md:mr-12  sm:mr-12 mb-5 sm:mb-0">
                         <div className="flex gap-2 lg:mr-12 md:mr-12  sm:mr-12   mx-auto" >
@@ -44,7 +44,7 @@ export default function Footer() {
                         </div>
                         <div className="flex gap-[20px] mb-5 sm:mb-0">
                             <div className="">
-                                <Mail  style={{ color: 'rgb(251 146 60)', height: '36px', width: "32px", marginTop: '5px' }} />
+                                <Mail style={{ color: 'rgb(251 146 60)', height: '36px', width: "32px", marginTop: '5px' }} />
 
                             </div>
                             <div className="text-start">
@@ -64,8 +64,8 @@ export default function Footer() {
                 {/* <div   className="mx-6 py-10 text-center md:text-left">
                     <div className="grid-1 grid gap-8 md:grid-cols-2 lg:grid-cols-4"> */}
 
-                        {/* <!-- Products section --> */}
-                        {/* <div className="">
+                {/* <!-- Products section --> */}
+                <div className="">
                             <h6
                                 className="mb-4 flex justify-center font-semibold uppercase md:justify-start text-white">
                                 Products
@@ -94,9 +94,9 @@ export default function Footer() {
                                 <a href={'/'} className=" text-[14px]  flex  text-white hover:text-orange-400"
                                 ><ChevronRight className="h-[22px] w-[19px] " />Work with Us</a>
                             </p>
-                        </div> */}
-                        {/* <!-- Useful links section --> */}
-                        {/* <div className="">
+                        </div>
+                {/* <!-- Useful links section --> */}
+                {/* <div className="">
                             <h6
                                 className="mb-4 flex justify-center font-semibold uppercase md:justify-start text-white">
                                 Popular House
@@ -126,8 +126,8 @@ export default function Footer() {
                                 > #Bunglow</a>
                             </p>
                         </div> */}
-                        {/* <!-- Contact section --> */}
-                        {/* <div className="">
+                {/* <!-- Contact section --> */}
+                {/* <div className="">
                             <h6
                                 className="mb-4 flex justify-center font-semibold uppercase md:justify-start text-white">
                                 Quicks Links
