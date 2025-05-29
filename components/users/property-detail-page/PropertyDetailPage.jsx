@@ -6,8 +6,10 @@ import MapView from "@/components/map/MapView";
 import NotificationAlert from "@/hooks/NotificationAlert";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/components/alerts/ToastContext";
 
 export default function PropertyDetailPage({ property }) {
+    const { showToast } = useToast();
 
     const router = useRouter()
     const [MoreProperty, setMoreProperty] = useState([]);
@@ -175,7 +177,7 @@ export default function PropertyDetailPage({ property }) {
                         <p className="text-sm text-gray-600 mb-4 mt-5">Our professional agents are here to help you find the right home. Contact us today and let’s make your dream come true.</p>
                     </div>
 
-                    <ContactForm />
+                    <ContactForm showToast={showToast} />
                     {/* <div className="space-y-2">
                         <input type="text" placeholder="Your Name" className="w-full p-2 border border-gray-300 rounded-lg" />
 
@@ -210,7 +212,7 @@ export default function PropertyDetailPage({ property }) {
                 <div className="bg-orange-50 p-4 rounded-lg">
                     <h3 className="font-bold mb-2">We can help you find home</h3>
                     <p className="text-sm text-gray-600 mb-4">Contact one of our top agents to help you find your dream home.</p>
-                    <button className="bg-orange-500 text-white w-full py-2 rounded">Find Agent</button>
+                    {/* <button className="bg-orange-500 text-white w-full py-2 rounded">Find Agent</button> */}
                 </div>
             </div>
 
@@ -219,7 +221,7 @@ export default function PropertyDetailPage({ property }) {
                 {/* Map Section */}
                 {/* <div className="lg:col-span-2">
                     <h2 className="text-xl font-semibold mb-2">Get Direction</h2> */}
-                    {/* <MapView style={{ height: "400px", width: "100%", borderRadius: "0.5rem" }} zoom={13}
+                {/* <MapView style={{ height: "400px", width: "100%", borderRadius: "0.5rem" }} zoom={13}
                         scrollWheelZoom={false} lat={property?.location_latitude} lng={property?.location_longitude} /> */}
                 {/* </div> */}
 
@@ -284,30 +286,46 @@ export default function PropertyDetailPage({ property }) {
 
 
 
-function ContactForm() {
+function ContactForm({ showToast }) {
     const [name, setName] = useState("");
     const [message, setMessage] = useState("");
 
     const handleSubmit = () => {
         if (!name.trim() || !message.trim()) {
-            console.log("Both Field required");
+             showToast({
+                message: 'Both Fields required.',
+                type: 'info',
+                duration: 3000
+            })
             return;
         }
 
         if (!name.trim()) {
-            NotificationAlert('info', 'Enter your name to send message.')
-
+             showToast({
+                message: 'Enter your name to send message.',
+                type: 'info',
+                duration: 3000
+            })
             return;
 
         }
 
         if (!message.trim()) {
-            NotificationAlert('info', 'Add message to send.')
+            // NotificationAlert('info', 'Add message to send.')
+ 
+            showToast({
+                message: 'Add message to send.',
+                type: 'info',
+                duration: 3000
+            })
             return;
 
         }
-
-        NotificationAlert('success', 'Message send successfully.')
+         showToast({
+            message: 'Message send successfully.',
+            type: 'success',
+            duration: 3000
+        })
 
         setName("");
         setMessage("");

@@ -11,6 +11,8 @@ export function ToastProvider({ children }) {
   const [toast, setToast] = useState(null);
 
   const showToast = useCallback(({ message, type = 'success', duration = 4000 }) => {
+    console.log(message, type, duration);
+
     setToast({ message, type, duration });
   }, []);
 

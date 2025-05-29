@@ -333,14 +333,18 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
           user_id: "cf728789-92d2-4d26-82e0-6c2018fb9c86"
         }
       });
-      showToast('Property added successfully.', 'success', 3000)
+      showToast({
+        message: 'Property added successfully.',
+        type: 'success',
+        duration: 3000
+      })
 
       if (data) {
         closeModal()
       }
     } catch (error) {
       // ❌ Error log or toast
-      showToast('Error occured while adding property', 'error', 3000)
+      showToast({ message: 'Error occured while adding property', type: 'error', duration: 3000 })
     }
 
 

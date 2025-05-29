@@ -62,7 +62,7 @@ export default function NavigationBar({ children }) {
                 </div>
 
                 {/* Desktop Links */}
-                <div className="hidden lg:flex gap-6    text-sm font-medium text-gray-700">
+                <div className="hidden lg:flex gap-10    text-sm font-medium text-gray-700">
                     <div
 
                         onClick={() => router.push("/")}
@@ -72,14 +72,14 @@ export default function NavigationBar({ children }) {
                         {/* {text !== "Home" && <DownOutlined style={{ fontSize: '10px' }} />} */}
                     </div>
 
-                    <div
+                    {/* <div
 
                         onClick={() => router.push("/")}
                         className="cursor-pointer text-lg hover:text-orange-500 flex items-center gap-1 hover:border-b-4 hover:border-orange-400"
                     >
                         Listing
 
-                    </div>
+                    </div> */}
 
                     <div
 
@@ -114,7 +114,7 @@ export default function NavigationBar({ children }) {
                         {userClicked && (
                             <div className="absolute right-0 mt-3 w-52 bg-white border border-gray-100 rounded-md shadow-lg py-1 z-50">
                                 <DropdownItem icon={<TableProperties />} label="My Properties" onClick={() => router.push('/my-properties')} />
-                                <DropdownItem icon={<UserRoundPen />} label="My Profile" />
+                                {/* <DropdownItem icon={<UserRoundPen />} label="My Profile" /> */}
                                 <DropdownItem icon={<MapPinHouse />} label="Add property" onClick={() => setAddProperty(!addProperty)} />
                                 <DropdownItem icon={<LogOut />} label="Logout" />
                             </div>

@@ -77,14 +77,14 @@ const CardView = ({ item, key }) => {
         }} />
 
         <div className="flex justify-between mt-3">
-          <div className="text-[14px] font-[600] text-orange-400">₹ {item?.price}</div>
+          <div className="text-[14px] font-[600] text-orange-400 pt-1">₹ {item?.price}</div>
 
-          <div className="flex text-[14px]">
+          {/* <div className="flex text-[14px]">
             <span className="pt-1">
               <ArrowRightLeft style={{ height: '13px' }} />
             </span>
             Compare
-          </div>
+          </div> */}
 
           <div>
             <button className="border border-orange-400 text-[14px] text-orange-400 font-[600] px-2 py-[2px] rounded-lg hover:bg-orange-400 hover:text-white">

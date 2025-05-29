@@ -7,7 +7,7 @@ export default function Footer() {
             <div className=" container mx-auto">
 
                 <div style={{borderBottom:'1px solid gray'}}
-                    className="block sm:flex md:flex sm:flex items-center justify-center   border-neutral-200 p-6 dark:border-neutral-500 lg:justify-between ">
+                    className="block sm:flex md:flex sm:flex items-center justify-center    border-neutral-200 p-6 dark:border-neutral-500 lg:justify-between  ">
                     <div className="lg:mr-12 md:mr-12  sm:mr-12 mb-5 sm:mb-0">
                         <div className="flex gap-2 lg:mr-12 md:mr-12  sm:mr-12   mx-auto" >
                             <div className="  pt-[2px] " >
@@ -61,11 +61,11 @@ export default function Footer() {
                 </div>
 
                 {/* <!-- Main container div: holds the entire content of the footer, including four sections (TW Elements, Products, Useful links, and Contact), with responsive styling and appropriate padding/margins. --> */}
-                <div   className="mx-6 py-10 text-center md:text-left">
-                    <div className="grid-1 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+                {/* <div   className="mx-6 py-10 text-center md:text-left">
+                    <div className="grid-1 grid gap-8 md:grid-cols-2 lg:grid-cols-4"> */}
 
                         {/* <!-- Products section --> */}
-                        <div className="">
+                        {/* <div className="">
                             <h6
                                 className="mb-4 flex justify-center font-semibold uppercase md:justify-start text-white">
                                 Products
@@ -94,9 +94,9 @@ export default function Footer() {
                                 <a href={'/'} className=" text-[14px]  flex  text-white hover:text-orange-400"
                                 ><ChevronRight className="h-[22px] w-[19px] " />Work with Us</a>
                             </p>
-                        </div>
+                        </div> */}
                         {/* <!-- Useful links section --> */}
-                        <div className="">
+                        {/* <div className="">
                             <h6
                                 className="mb-4 flex justify-center font-semibold uppercase md:justify-start text-white">
                                 Popular House
@@ -125,9 +125,9 @@ export default function Footer() {
                                 <a href={'/'} className="text-[14px]  flex  text-white hover:text-orange-400"
                                 > #Bunglow</a>
                             </p>
-                        </div>
+                        </div> */}
                         {/* <!-- Contact section --> */}
-                        <div className="">
+                        {/* <div className="">
                             <h6
                                 className="mb-4 flex justify-center font-semibold uppercase md:justify-start text-white">
                                 Quicks Links
@@ -173,7 +173,7 @@ export default function Footer() {
 
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 {/* <!--Copyright section--> */}
                 <div className="bg-neutral-200 p-6 text-center dark:bg-neutral-700 hidden">
