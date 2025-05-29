@@ -23,13 +23,20 @@ export default async function PropertyDetails({ params }) {
             price
             property_type
             property_banner_image
-            images
+            images {
+              url
+              image
+            }
             owner_name
             owner_contact
             property_video
             property_description
             location_latitude
             location_longitude
+            property_video_name
+            banner_image_name
+            city
+            state
             isbooked
             created_at
           }

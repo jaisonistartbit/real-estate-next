@@ -8,10 +8,11 @@ const MainBanner = () => {
     const router = useRouter();
 
     const handleSearch = () => {
-        const trimmed = searchValue.trim();
-        if (trimmed) {
-            router.push(`/city/${encodeURIComponent(trimmed)}`);
-        }
+
+        sessionStorage.setItem('searchQuery', searchValue);
+        router.push('/search-property');
+
+
     };
 
     return (
@@ -45,7 +46,7 @@ const MainBanner = () => {
                                         className="hidden lg:flex md:flex sm:flex bg-orange-400 text-[16px] text-white font-semibold w-[100px] ps-4 pe-3 pt-[5px] pb-1 rounded-lg cursor-pointer hover:bg-orange-200 hover:text-orange-400 "
                                     >
                                         Search
-                                        <SearchOutlined className="ms-1 pt-0  hover:bg-orange-200 hover:text-orange-400 " style={{   fontSize: '15px' }} />
+                                        <SearchOutlined className="ms-1 pt-0  hover:bg-orange-200 hover:text-orange-400 " style={{ fontSize: '15px' }} />
                                     </button>
                                 </div>
                             </div>

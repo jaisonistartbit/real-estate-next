@@ -38,11 +38,16 @@ export default function PropertyDetailPage({ property }) {
                 cache: 'no-store'
             });
             const json = await res.json();
-            setMoreProperty(json?.data?.getProperties || []);
+            let filtereddata = (json?.data?.getProperties || [])?.filter((item) => {
+                return item?.id != property?.id
+            })
+            setMoreProperty(filtereddata);
         };
 
         fetchProperties();
     }, []);
+
+    console.log(property);
 
     return (
         <div className="bg-white">
@@ -53,39 +58,64 @@ export default function PropertyDetailPage({ property }) {
                     alt="Main Property"
                     className="col-span-1 lg:col-span-2 w-full h-[400px] object-cover rounded-lg"
                 />
-                <div className="grid grid-cols-2 gap-2">
-                    {(property?.images ?? [])?.map((item, index) => {
-                        if (index < 4) {
-                            return <img
-                                key={index}
-                                src={item}
-                                alt="Sub 1"
-                                className="w-full h-[195px] object-cover rounded-lg"
-                            />
-                        }
+                <div className="w-full space-y-2">
+                    {property?.images?.length === 1 && (
+                        <img
+                            src={property.images[0].url}
+                            alt="Sub 1"
+                            className="w-full h-[400px] object-cover rounded-lg"
+                        />
+                    )}
 
-                    })}
-                    {/* <img
-                        src="/images/flats/FlatPhoto2.jpg"
-                        alt="Sub 1"
-                        className="w-full h-[195px] object-cover rounded-lg"
-                    />
-                    <img
-                        src="/images/flats/FlatPhoto3.jpg"
-                        alt="Sub 2"
-                        className="w-full h-[195px] object-cover rounded-lg"
-                    />
-                    <img
-                        src="/images/flats/FlatPhoto4.jpg"
-                        alt="Sub 3"
-                        className="w-full h-[195px] object-cover rounded-lg"
-                    />
-                    <img
-                        src="/images/flats/FlatPhoto5.jpg"
-                        alt="Sub 4"
-                        className="w-full h-[195px] object-cover rounded-lg"
-                    /> */}
+                    {property?.images?.length === 2 && (
+                        <div className="space-y-2">
+                            {property.images.slice(0, 2).map((item, index) => (
+                                <img
+                                    key={index}
+                                    src={item.url}
+                                    alt={`Sub ${index + 1}`}
+                                    className="w-full h-[200px] object-cover rounded-lg"
+                                />
+                            ))}
+                        </div>
+                    )}
+
+                    {property?.images?.length === 3 && (
+                        <>
+                            <div className="grid grid-cols-2 gap-2">
+                                {property.images.slice(0, 2).map((item, index) => (
+                                    <img
+                                        key={index}
+                                        src={item.url}
+                                        alt={`Sub ${index + 1}`}
+                                        className="w-full h-[190px] object-cover rounded-lg"
+                                    />
+                                ))}
+                            </div>
+                            <div className="flex justify-center">
+                                <img
+                                    src={property.images[2].url}
+                                    alt="Sub 3"
+                                    className="w-[100%] h-[196px] object-cover rounded-lg mt-1"
+                                />
+                            </div>
+                        </>
+                    )}
+
+                    {property?.images?.length >= 4 && (
+                        <div className="grid grid-cols-2 gap-2">
+                            {property.images.slice(0, 4).map((item, index) => (
+                                <img
+                                    key={index}
+                                    src={item.url}
+                                    alt={`Sub ${index + 1}`}
+                                    className="w-full h-[195px] object-cover rounded-lg"
+                                />
+                            ))}
+                        </div>
+                    )}
                 </div>
+
             </div>
 
             {/* Title + Price + Details */}
@@ -189,8 +219,8 @@ export default function PropertyDetailPage({ property }) {
                 {/* Map Section */}
                 <div className="lg:col-span-2">
                     <h2 className="text-xl font-semibold mb-2">Get Direction</h2>
-                    <MapView style={{ height: "400px", width: "100%", borderRadius: "0.5rem" }} zoom={13}
-                        scrollWheelZoom={false} lat={property?.location_latitude} lng={property?.location_longitude} />
+                    {/* <MapView style={{ height: "400px", width: "100%", borderRadius: "0.5rem" }} zoom={13}
+                        scrollWheelZoom={false} lat={property?.location_latitude} lng={property?.location_longitude} /> */}
                 </div>
 
                 {/* 360 Virtual Tour */}

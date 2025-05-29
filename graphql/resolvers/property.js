@@ -1,7 +1,7 @@
 // resolvers/propertyResolvers.js
 
 import { supabase } from "@/lib/supabase";
-
+import { parseQuery } from '@/lib/parseQuery';
 
 const propertyResolvers = {
   Query: {
@@ -39,7 +39,31 @@ const propertyResolvers = {
       const { data, error } = await supabase
         .from('properties')
         .select('*')
-        .eq('city', city); // direct match with city field in properties
+        .ilike('city', `%${city}%`); // case-insensitive partial match
+
+      if (error) throw new Error(error.message);
+      return data;
+    },
+
+    async searchProperties(_, { query }) {
+      const filters = parseQuery(query); // extract values like 2, 'vaishali nagar', 2000
+      console.log('//////////////////////',filters);
+      
+      let supa = supabase.from("properties").select("*");
+
+      if (filters.total_rooms) {
+        supa = supa.eq("total_rooms", filters.total_rooms);
+      }
+
+      if (filters.max_price) {
+        supa = supa.lte("price", filters.max_price);
+      }
+
+      if (filters.location) {
+        supa = supa.ilike("city", `%${filters.location}%`);
+      }
+
+      const { data, error } = await supa;
 
       if (error) throw new Error(error.message);
       return data;
@@ -92,6 +116,22 @@ const propertyResolvers = {
 
       return property;
     },
+
+    async editProperty(_, args) {
+      const { id, ...updateFields } = args;
+
+      const { data, error } = await supabase
+        .from('properties')
+        .update(updateFields)
+        .eq('id', id)
+        .select()
+        .single();
+
+      if (error) throw new Error(error.message);
+
+      return data;
+    }
+    ,
 
     async deleteProperty(_, { id }) {
       const { data, error } = await supabase

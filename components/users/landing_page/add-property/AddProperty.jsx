@@ -8,7 +8,7 @@ import client from '@/lib/apolloClient';
 import { uploadToStorage } from "@/app/functions/UploadToStorage";
 import { useState } from "react";
 import InputTextAreaMultiple from "@/components/forminputs/InputTextAreaMultiple";
-import { InputSelect2 } from "@/components/forminputs/Select/InputSelect";
+// import { InputSelect2 } from "@/components/forminputs/Select/InputSelect";
 import { Modal } from "@/components/modal";
 
 const ADD_PROPERTY = gql`
@@ -20,13 +20,15 @@ const ADD_PROPERTY = gql`
     $price: Float
     $property_type: String
     $location: String
-    $city: String          # ✅ Added
-    $state: String         # ✅ Added
+    $city: String
+    $state: String
     $property_banner_image: String
-    $images: [String]
+    $banner_image_name: String
+    $images: [ImageObjectInput!]!
     $owner_name: String
     $owner_contact: String
     $property_video: String
+    $property_video_name: String
     $property_description: String
     $location_latitude: Float
     $location_longitude: Float
@@ -41,13 +43,15 @@ const ADD_PROPERTY = gql`
       price: $price
       property_type: $property_type
       location: $location
-      city: $city          # ✅ Added
-      state: $state        # ✅ Added
+      city: $city
+      state: $state
       property_banner_image: $property_banner_image
+      banner_image_name: $banner_image_name
       images: $images
       owner_name: $owner_name
       owner_contact: $owner_contact
       property_video: $property_video
+      property_video_name: $property_video_name
       property_description: $property_description
       location_latitude: $location_latitude
       location_longitude: $location_longitude
@@ -58,8 +62,8 @@ const ADD_PROPERTY = gql`
       name
       price
       location
-      city          # ✅ Optional in response
-      state         # ✅ Optional in response
+      city
+      state
       isbooked
       user_id
     }
@@ -256,6 +260,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
   const [AddProperty] = useMutation(ADD_PROPERTY, { client });
   const [uploadingFileFetch, setUploadingFileFetch] = useState(null)
 
+
   const addProperty = async () => {
     let PropertyNameValidator = PropertyNameValidater(PropertyName.enteredValue)
     let TotalRoomsValidator = TotalRoomsValidater(TotalRooms.enteredValue)
@@ -273,61 +278,69 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
     let StateValidator = StateValidater(State.enteredValue)
 
 
-    setUploadingFileFetch('Uploading attatchments...')
-    let { imageUrls = null, videoUrl = null, bannerImageUrl = null } = await uploadAllMedia(PropertyImages, PropertyVideo, BannerImage, setUploadingFileFetch);
-    setUploadingFileFetch(null)
+
 
 
     if (!PropertyNameValidator || !TotalRoomsValidator || !TotalBathroomsValidator || !DimensionsValidator || !PriceValidator || !LocationValidator || !LocationLattitudeValidator || !LocationLongitudeValidator || !OwnerContactValidator || !OwnerNameValidator || !PropertyDescriptionValidator || !PropertyTypeValidator || !CityValidator || !StateValidator) {
 
       NotificationAlert('error', 'Fill all the required fields.')
+      return false
     }
-    else if (!imageUrls) {
+    else if ((PropertyImages ?? [])?.length == 0) {
       NotificationAlert('error', 'Add images of your property.')
+      return false
 
     }
-    else if (!videoUrl) {
+    else if (!PropertyVideo) {
       NotificationAlert('error', 'Add video of your property.')
+      return false
 
     }
-    else if (!bannerImageUrl) {
+    else if (!BannerImage) {
       NotificationAlert('error', 'Add banner image of your property.')
+      return false
 
     }
-    else {
-      try {
-        const { data } = await AddProperty({
-          variables: {
-            name: PropertyName.enteredValue,
-            total_rooms: Number(TotalRooms.enteredValue),
-            total_bathroom: Number(TotalBathrooms.enteredValue),
-            dimension: Dimensions.enteredValue,
-            price: Number(Price.enteredValue),
-            property_type: PropertyType.enteredValue,
-            location: Location.enteredValue,
-            property_banner_image: bannerImageUrl,
-            images: imageUrls ?? [],
-            owner_name: OwnerName.enteredValue,
-            owner_contact: OwnerContact.enteredValue,
-            property_video: videoUrl,
-            property_description: PropertyDescription.enteredValue,
-            location_latitude: Number(LocationLattitude.enteredValue),
-            location_longitude: Number(LocationLongitude.enteredValue),
-            city: City.enteredValue,
-            state: State.enteredValue,
-            isbooked: false,
-            user_id: "cf728789-92d2-4d26-82e0-6c2018fb9c86"
-          }
-        });
 
-        // ✅ Success log or toast
-        NotificationAlert("success", "Property added successfully!");
-        // Optionally reset form or close modal
-      } catch (error) {
-        // ❌ Error log or toast
-        NotificationAlert("error", "Failed to add property.");
-      }
+    setUploadingFileFetch('Uploading attatchments...')
+    let { imageUrls = null, videoUrl = null, bannerImageUrl = null } = await uploadAllMedia(PropertyImages, PropertyVideo, BannerImage, setUploadingFileFetch);
+    setUploadingFileFetch(null)
+
+    try {
+      const { data } = await AddProperty({
+        variables: {
+          name: PropertyName.enteredValue,
+          total_rooms: Number(TotalRooms.enteredValue),
+          total_bathroom: Number(TotalBathrooms.enteredValue),
+          dimension: Dimensions.enteredValue,
+          price: Number(Price.enteredValue),
+          property_type: PropertyType.enteredValue,
+          location: Location.enteredValue,
+          property_banner_image: bannerImageUrl,
+          images: imageUrls ?? [],
+          owner_name: OwnerName.enteredValue,
+          owner_contact: OwnerContact.enteredValue,
+          property_video: videoUrl,
+          property_description: PropertyDescription.enteredValue,
+          location_latitude: Number(LocationLattitude.enteredValue),
+          location_longitude: Number(LocationLongitude.enteredValue),
+          city: City.enteredValue,
+          state: State.enteredValue,
+          isbooked: false,
+          banner_image_name: BannerImage?.[0]?.name,
+          property_video_name: PropertyVideo?.[0]?.name,
+          user_id: "cf728789-92d2-4d26-82e0-6c2018fb9c86"
+        }
+      });
+      // (PropertyImages ?? []).map((item) => { return item?.name }), PropertyVideo?.[0]?.name, BannerImage?.[0]?.name
+      // ✅ Success log or toast
+      NotificationAlert("success", "Property added successfully!");
+      // Optionally reset form or close modal
+    } catch (error) {
+      // ❌ Error log or toast
+      NotificationAlert("error", "Failed to add property.");
     }
+
 
   }
 
@@ -767,7 +780,7 @@ const uploadAllMedia = async (images = [], videoFile = null, bannerImage = null,
   setUploadingFileFetch('Uploading property images...')
   for (const image of images) {
     const url = await uploadToStorage(image, "properties/images");
-    imageUrls.push(url);
+    imageUrls.push({ url: url, image: image?.name });
   }
   setUploadingFileFetch('Uploading property video...')
 

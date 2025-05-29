@@ -3,7 +3,7 @@ import NavigationBar from "@/components/users/landing_page/navbar_component/Navi
 import PropertyDetailPage from "@/components/users/property-detail-page/PropertyDetailPage";
 
 export default async function PropertyDetails({ params }) {
-  const propertyId = params?.id; 
+  const propertyId = params?.id;
 
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_GRAPHQL_API}/graphql`, {
@@ -22,7 +22,10 @@ export default async function PropertyDetails({ params }) {
             price
             property_type
             property_banner_image
-            images
+            images {
+              url
+              image
+            }
             owner_name
             owner_contact
             property_video
@@ -40,8 +43,11 @@ export default async function PropertyDetails({ params }) {
   });
 
   const json = await res.json();
+  console.log(json);
+
   const property = json?.data?.getPropertyById;
- 
+  console.log(property);
+
 
   return (
     <>
