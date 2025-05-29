@@ -217,14 +217,14 @@ export default function PropertyDetailPage({ property }) {
             <div className=" max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-3 gap-4 my-[50px]">
 
                 {/* Map Section */}
-                <div className="lg:col-span-2">
-                    <h2 className="text-xl font-semibold mb-2">Get Direction</h2>
+                {/* <div className="lg:col-span-2">
+                    <h2 className="text-xl font-semibold mb-2">Get Direction</h2> */}
                     {/* <MapView style={{ height: "400px", width: "100%", borderRadius: "0.5rem" }} zoom={13}
                         scrollWheelZoom={false} lat={property?.location_latitude} lng={property?.location_longitude} /> */}
-                </div>
+                {/* </div> */}
 
                 {/* 360 Virtual Tour */}
-                <div className="  mx-auto  ">
+                <div className="   lg:col-span-2 ">
                     <h2 className="text-xl   font-semibold mb-2">360 Virtual Tour</h2>
                     <img src="/images/flats/FlatPhoto4.jpg" className="w-[100%] h-[400px] object-cover rounded-lg" alt="360 View" />
                 </div>
