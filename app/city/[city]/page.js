@@ -43,7 +43,7 @@ export default async function CityPropertyPage({ params }) {
                     Properties in {city}
                 </h1>
                 <p className="text-gray-500 text-[0.8rem] font-[400] tracking-[1px]">
-                    Browse all listings available in {city}
+                    Showing properties for: {city}
                 </p>
 
                 {
