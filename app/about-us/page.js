@@ -22,7 +22,7 @@ export default function AboutUs() {
 
                 {/* Description Section */}
                 <div className="flex flex-col lg:flex-row gap-4 px-3 my-3 pb-4 pt-9">
-                    <div className="w-full lg:w-[70%]">
+                    <div className="w-full lg:w-[70%] ps-0 lg:ps-3 ">
                         <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6">
                             Welcome to <span className="text-orange-600">Homies.com</span>
                         </h1>
