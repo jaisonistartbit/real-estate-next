@@ -13,7 +13,7 @@ const MyPropertyListing = ({ properties }) => {
                     className="relative flex flex-col md:flex-row rounded-2xl p-5 bg-white shadow-[0_8px_20px_rgba(71,85,105,0.1)] border border-gray-100"
                 >
                     {/* Action Badges */}
-                    <div className="absolute top-4 right-4 flex gap-2 z-10">
+                    <div className="absolute top-6 right-6 flex gap-2 z-10">
                         <span className="px-4 py-1 rounded-full bg-sky-100 text-sky-700 text-sm font-semibold hover:bg-sky-200 cursor-pointer transition" onClick={() => {
                             router.push(`/edit-property/${property?.id}`);
 

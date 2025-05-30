@@ -35,7 +35,7 @@ export default async function CityPropertyPage({ params }) {
     const properties = await fetchPropertiesByCity(city);
 
     return (
-        <>
+        <div className=" min-h-screen flex flex-col  ">
             <NavigationBar />
 
             <div className="text-center mt-[50px]">
@@ -58,7 +58,6 @@ export default async function CityPropertyPage({ params }) {
                         <div className="text-center my-10">
                             <span className=" bg-orange-200 text-orange-400 text-lg rounded-lg px-4 py-2">
                                 No property listed in selected city !
-
                             </span>
                         </div>
 
@@ -66,6 +65,6 @@ export default async function CityPropertyPage({ params }) {
             </div>
 
             <Footer />
-        </>
+        </div>
     );
 }

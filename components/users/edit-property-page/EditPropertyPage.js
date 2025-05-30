@@ -9,6 +9,8 @@ import { uploadToStorage } from "@/app/functions/UploadToStorage";
 import { useEffect, useState } from "react";
 import InputTextAreaMultiple from "@/components/forminputs/InputTextAreaMultiple";
 import { InputSelect2 } from "@/components/forminputs/Select/InputSelect";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/alerts/ToastContext";
 
 const EDIT_PROPERTY = gql`
   mutation EditProperty(
@@ -74,6 +76,8 @@ const EDIT_PROPERTY = gql`
 
 const EditPropertyPage = ({ property }) => {
 
+    const router = useRouter()
+    const { showToast } = useToast();
 
     const [BannerImage, setbannerImage] = useState(null)
     const [PropertyVideo, setPropertyVideo] = useState(null)
@@ -154,8 +158,17 @@ const EditPropertyPage = ({ property }) => {
             OwnerContact.setMessageType("error");
             return false;
         }
+        const phoneRegex =
+            /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
+        if (!phoneRegex.test(value)) {
+            OwnerContact.setFeedbackMessage("Enter valid Phone Number!");
+            OwnerContact.setMessageType("error");
+            return false;
+        }
+
         OwnerContact.setFeedbackMessage("");
         OwnerContact.setMessageType("none");
+
         return true;
     };
     const TotalBathrooms = useInputComponent();
@@ -262,7 +275,6 @@ const EditPropertyPage = ({ property }) => {
     const [videoName, setVideoName] = useState(null)
 
     const editProperty = async () => {
-        console.log('///////////////');
 
         let PropertyNameValidator = PropertyNameValidater(PropertyName.enteredValue)
         let TotalRoomsValidator = TotalRoomsValidater(TotalRooms.enteredValue)
@@ -303,7 +315,6 @@ const EditPropertyPage = ({ property }) => {
             return false
 
         }
-        console.log('done');
 
         setUploadingFileFetch('Uploading attatchments...')
 
@@ -311,25 +322,22 @@ const EditPropertyPage = ({ property }) => {
 
 
         if ((newlyAddedImages ?? [])?.length > 0) {
-            console.log('111111111');
 
             let { imageUrls } = await uploadAllMedia(newlyAddedImages, null, null, setUploadingFileFetch);
-            imageUrlss.push(imageUrls)
+            imageUrlss = [...imageUrlss, ...imageUrls]
         }
         if (!bannerImageName) {
-            console.log('22222222222');
 
             let { bannerImageUrl } = await uploadAllMedia(null, null, BannerImage, setUploadingFileFetch);
             bannerImageUrls = bannerImageUrl
         }
         if (!videoName) {
-            console.log('33333333');
 
             let { videoUrl } = await uploadAllMedia(null, PropertyVideo, null, setUploadingFileFetch);
             videoUrls = videoUrl
         }
         // let { imageUrls = null, videoUrl = null, bannerImageUrl = null } = await uploadAllMedia(PropertyImages, PropertyVideo, BannerImage, setUploadingFileFetch);
-        setUploadingFileFetch(null)
+        setUploadingFileFetch('updating property...')
 
 
 
@@ -358,18 +366,25 @@ const EditPropertyPage = ({ property }) => {
                     id: property?.id ?? ''
                 }
             });
+            setUploadingFileFetch(null)
 
-            // ✅ Success log or toast
-            NotificationAlert("success", "Property added successfully!");
-            // Optionally reset form or close modal
+
+
+            showToast({
+                message: 'Property updated successfully.',
+                type: 'success',
+                duration: 3000
+            })
+
+            router.push('/my-properties')
+
         } catch (error) {
             // ❌ Error log or toast
-            NotificationAlert("error", "Failed to add property.");
+            showToast({ message: 'Error occured while updating property', type: 'error', duration: 3000 })
         }
 
 
     }
-    console.log(bannerImageName, videoName, PropertyImages);
 
     useEffect(() => {
         if (property) {
@@ -427,7 +442,7 @@ const EditPropertyPage = ({ property }) => {
             <div>
                 <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 px-2 gap-5     pe-3     ">
 
-                    <div  >
+                    <div className="col-span-3 lg:col-span-1 "   >
 
                         <InputWithAddOnMultiple
                             label="Property Name"
@@ -449,7 +464,7 @@ const EditPropertyPage = ({ property }) => {
                             extraProps={{ style: { height: "32px", width: '100%' } }}
                         />
                     </div>
-                    <div  >
+                    <div className="col-span-3 lg:col-span-1 "   >
                         <InputWithAddOnMultiple
                             label="Total Rooms"
                             placeholder=""
@@ -471,7 +486,7 @@ const EditPropertyPage = ({ property }) => {
                             extraProps={{ style: { height: "32px", width: '100%' } }}
                         />
                     </div>
-                    <div  >
+                    <div className="col-span-3 lg:col-span-1 "   >
                         <InputWithAddOnMultiple
                             label="Total Bathrooms"
                             placeholder=""
@@ -493,7 +508,7 @@ const EditPropertyPage = ({ property }) => {
                             type="number"
                         />
                     </div>
-                    <div  >
+                    <div className="col-span-3 lg:col-span-1 "   >
                         <InputWithAddOnMultiple
                             label="Dimensions"
                             placeholder=""
@@ -515,7 +530,7 @@ const EditPropertyPage = ({ property }) => {
                         />
                     </div>
 
-                    <div  >
+                    <div className="col-span-3 lg:col-span-1 "   >
                         <InputWithAddOnMultiple
                             label="Price"
                             placeholder=""
@@ -539,7 +554,7 @@ const EditPropertyPage = ({ property }) => {
                     </div>
 
 
-                    <div>
+                    <div className="col-span-3 lg:col-span-1 "  >
                         <InputWithAddOnMultiple
                             label="Owner Name"
                             placeholder=""
@@ -560,7 +575,7 @@ const EditPropertyPage = ({ property }) => {
                             extraProps={{ style: { height: "32px", width: '100%' } }}
                         />
                     </div>
-                    <div>
+                    <div className="col-span-3 lg:col-span-1 "  >
                         <InputWithAddOnMultiple
                             label="Owner Contact"
                             placeholder=""
@@ -575,6 +590,7 @@ const EditPropertyPage = ({ property }) => {
                             reset={OwnerContact.reset}
                             isRequired={true}
                             disabled={false}
+                            type="number"
                             onBlurAction={(e) => {
                                 // blurInputAction(e, "Transport_Equipment_ID");
                             }}
@@ -583,7 +599,7 @@ const EditPropertyPage = ({ property }) => {
                     </div>
 
 
-                    <div  >
+                    <div className="col-span-3 lg:col-span-1 "   >
                         <InputWithAddOnMultiple
                             label="Lattitude"
                             placeholder=""
@@ -606,7 +622,7 @@ const EditPropertyPage = ({ property }) => {
                         />
                     </div>
 
-                    <div  >
+                    <div className="col-span-3 lg:col-span-1 "   >
                         <InputWithAddOnMultiple
                             label="Longitude"
                             placeholder=""
@@ -631,7 +647,7 @@ const EditPropertyPage = ({ property }) => {
 
 
 
-                    <div>
+                    <div className="col-span-3 lg:col-span-1 "  >
 
                         <InputWithAddOnMultiple
                             label="Property Type"
@@ -654,7 +670,7 @@ const EditPropertyPage = ({ property }) => {
                         />
 
                     </div>
-                    <div>
+                    <div className="col-span-3 lg:col-span-1 "  >
 
                         <InputWithAddOnMultiple
                             label="City"
@@ -678,7 +694,7 @@ const EditPropertyPage = ({ property }) => {
 
                     </div>
 
-                    <div>
+                    <div className="col-span-3 lg:col-span-1 "  >
 
                         <InputWithAddOnMultiple
                             label="State"
@@ -701,7 +717,7 @@ const EditPropertyPage = ({ property }) => {
                         />
 
                     </div>
-                    <div className="col-span-1 lg:col-span-2 md:col-span-2 sm-col-span-2 " >
+                    <div className="col-span-3  " >
                         <InputWithAddOnMultiple
                             label="Location"
                             placeholder=""
@@ -888,7 +904,7 @@ const EditPropertyPage = ({ property }) => {
                 </div>
                 <div className="mt-6 flex justify-end gap-2">
                     <button
-                        onClick={() => { }}
+                        onClick={() => { router.push('/my-properties') }}
                         className="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300"
                     >
                         Cancel
@@ -929,13 +945,12 @@ export default EditPropertyPage;
 
 
 const uploadAllMedia = async (images = [], videoFile = null, bannerImage = null, setUploadingFileFetch) => {
-    console.log(images, videoFile, bannerImage);
 
     const imageUrls = [];
     setUploadingFileFetch('Uploading property images...')
     for (const image of (images ?? [])) {
         const url = await uploadToStorage(image, "properties/images");
-        imageUrls.push(url);
+        imageUrls.push({ url: url, image: image?.name });
     }
     setUploadingFileFetch('Uploading property video...')
 

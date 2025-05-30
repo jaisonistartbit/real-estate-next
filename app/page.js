@@ -7,14 +7,16 @@ import { ToastContainer, Bounce, toast } from "react-toastify";
 
 export default function LandingPage() {
   return (
-    <div className=" relative  ">
+    <div className=" min-h-screen flex flex-col  ">
       <NavigationBar />
-      <div className=" ">
 
-        <MainBanner />
-        <FlatListing />
-        <NearCities />
-      </div>
+      {/* Your page content here */}
+
+
+      <MainBanner />
+      <FlatListing />
+      <NearCities />
+      
 
       <Footer />
       <ToastContainer

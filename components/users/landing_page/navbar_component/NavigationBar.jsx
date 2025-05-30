@@ -7,7 +7,7 @@ import {
     MapPinHouse,
     Phone,
     TableProperties,
-    UserRoundPen
+    UserRoundPen, Home, ListOrdered, Info, PlusCircle
 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -72,14 +72,7 @@ export default function NavigationBar({ children }) {
                         {/* {text !== "Home" && <DownOutlined style={{ fontSize: '10px' }} />} */}
                     </div>
 
-                    {/* <div
 
-                        onClick={() => router.push("/")}
-                        className="cursor-pointer text-lg hover:text-orange-500 flex items-center gap-1 hover:border-b-4 hover:border-orange-400"
-                    >
-                        Listing
-
-                    </div> */}
 
                     <div
 
@@ -87,6 +80,15 @@ export default function NavigationBar({ children }) {
                         className="cursor-pointer text-lg hover:text-orange-500 flex items-center gap-1 hover:border-b-4 hover:border-orange-400"
                     >
                         Property
+
+                    </div>
+
+                    <div
+
+                        onClick={() => router.push("/about-us")}
+                        className="cursor-pointer text-lg hover:text-orange-500 flex items-center gap-1 hover:border-b-4 hover:border-orange-400"
+                    >
+                        About Us
 
                     </div>
 
@@ -116,7 +118,7 @@ export default function NavigationBar({ children }) {
                                 <DropdownItem icon={<TableProperties />} label="My Properties" onClick={() => router.push('/my-properties')} />
                                 {/* <DropdownItem icon={<UserRoundPen />} label="My Profile" /> */}
                                 <DropdownItem icon={<MapPinHouse />} label="Add property" onClick={() => setAddProperty(!addProperty)} />
-                                <DropdownItem icon={<LogOut />} label="Logout" />
+                                {/* <DropdownItem icon={<LogOut />} label="Logout" /> */}
                             </div>
                         )}
                     </div>
@@ -125,29 +127,67 @@ export default function NavigationBar({ children }) {
 
             {/* Mobile Drawer */}
             {drawerOpen && (
-                <div className="fixed inset-0 z-50 bg-black bg-opacity-30" onClick={() => setDrawerOpen(false)}>
-                    <div className="w-64 bg-white h-full shadow-lg pt-8 px-6 border-r border-gray-200" onClick={(e) => e.stopPropagation()}>
+                <div
+                    className="fixed inset-0 z-50 bg-black bg-opacity-30"
+                    onClick={() => setDrawerOpen(false)}
+                >
+                    <div
+                        className="w-64 bg-white h-full shadow-lg pt-8 px-6 border-r border-gray-200"
+                        onClick={(e) => e.stopPropagation()}
+                    >
                         <h2 className="text-lg font-semibold text-orange-500 mb-4">Menu</h2>
-                        {['Home', 'Listing', 'Property'].map((text, idx) => (
-                            <div
-                                key={idx}
-                                onClick={() => {
-                                    if (text === "Home") router.push("/");
-                                    setDrawerOpen(false);
-                                }}
-                                className="py-2 px-2 text-gray-700 hover:text-orange-500 cursor-pointer"
-                            >
-                                {text}
-                            </div>
-                        ))}
-                        <div className="py-2 px-2 text-gray-700">(603) 555-0123</div>
+
+                        {/* Home */}
+                        <div
+                            onClick={() => {
+                                router.push('/');
+                                setDrawerOpen(false);
+                            }}
+                            className="flex items-center gap-3 py-2 px-2 text-gray-700 hover:text-orange-500 cursor-pointer"
+                        >
+                            <Home className="w-5 h-5" />
+                            Home
+                        </div>
+
+                        {/* Listing */}
+                        <div
+                            onClick={() => {
+                                router.push('/properties');
+                                setDrawerOpen(false);
+                            }}
+                            className="flex items-center gap-3 py-2 px-2 text-gray-700 hover:text-orange-500 cursor-pointer"
+                        >
+                            <ListOrdered className="w-5 h-5" />
+                            Property
+                        </div>
+
+                        {/* About Us */}
+                        <div
+                            onClick={() => {
+                                router.push('/about-us');
+                                setDrawerOpen(false);
+                            }}
+                            className="flex items-center gap-3 py-2 px-2 text-gray-700 hover:text-orange-500 cursor-pointer"
+                        >
+                            <Info className="w-5 h-5" />
+                            About Us
+                        </div>
+
+                        {/* Phone */}
+                        <div className="flex items-center gap-3 py-2 px-2 text-gray-700 ">
+                            <Phone className="w-5 h-5" />
+                            (603) 555-0123
+                        </div>
+
+                        {/* Add Property */}
                         <div
                             onClick={() => {
                                 setAddProperty(true);
                                 setDrawerOpen(false);
                             }}
-                            className="py-2 px-2 text-gray-700 hover:text-orange-500 cursor-pointer"
+                            className="flex items-center gap-3 py-2 px-2 text-gray-700 hover:text-orange-500 cursor-pointer"
                         >
+                            <PlusCircle className="w-5 h-5" />
                             Add Property
                         </div>
                     </div>

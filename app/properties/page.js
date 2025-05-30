@@ -38,7 +38,7 @@ export default async function Page() {
 
 
     return (
-        <>
+          <div className=" min-h-screen flex flex-col  ">
             <NavigationBar />
 
             <div className="">
@@ -59,7 +59,7 @@ export default async function Page() {
 
             </div>
             <Footer />
-        </>
+       </div>
 
     );
 }

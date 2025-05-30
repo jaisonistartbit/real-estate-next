@@ -5,7 +5,7 @@ import './cardcss.css';
 import { useRouter } from "next/navigation";
 
 
-const CardView = ({ item, key }) => {
+const CardView = ({ item, key,listSize }) => {
 
   const router = useRouter();
 
@@ -26,14 +26,14 @@ const CardView = ({ item, key }) => {
         <div className="h-full w-full bg-black/50  card-hidden relative pt-4 px-3">
           <p className="text-start">
             <span className="rounded-[20px] bg-orange-400 text-white px-3 py-1 text-[12px] me-1 cursor-pointer font-[700]">
-              Featured
+              Rent
             </span>
             <span className="cursor-pointer rounded-[20px] bg-gray-700 text-white px-5 py-1 text-[12px] me-1 font-[700]">
-              Rent
+              Sale
             </span>
           </p>
 
-          <Bookmark
+          {/* <Bookmark
             className="cursor-pointer"
             style={{
               color: 'rgb(251 146 60)',
@@ -49,7 +49,7 @@ const CardView = ({ item, key }) => {
               right: '0',
               left: '0',
             }}
-          />
+          /> */}
         </div>
       </div>
 

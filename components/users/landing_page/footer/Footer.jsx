@@ -61,20 +61,20 @@ export default function Footer() {
                 </div>
 
                 {/* <!-- Main container div: holds the entire content of the footer, including four sections (TW Elements, Products, Useful links, and Contact), with responsive styling and appropriate padding/margins. --> */}
-                {/* <div   className="mx-6 py-10 text-center md:text-left">
-                    <div className="grid-1 grid gap-8 md:grid-cols-2 lg:grid-cols-4"> */}
+                <div className="mx-6 py-10 text-center md:text-left">
+                    <div className="grid-1 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
 
-                {/* <!-- Products section --> */}
-                <div className="">
+                        {/* <!-- Products section --> */}
+                        <div className="">
                             <h6
                                 className="mb-4 flex justify-center font-semibold uppercase md:justify-start text-white">
-                                Products
+                                Company
                             </h6>
                             <p className="mb-4">
-                                <a href={'/'} className=" text-[14px]  flex  text-white hover:text-orange-400"
-                                ><ChevronRight className="h-[22px] w-[19px] " />Contact</a>
+                                <a href={'/about-us'} className=" text-[14px]  flex  text-white hover:text-orange-400"
+                                ><ChevronRight className="h-[22px] w-[19px] " />About Us</a>
                             </p>
-                            <p className="mb-4">
+                            {/* <p className="mb-4">
                                 <a href={'/'} className=" text-[14px]  flex  text-white hover:text-orange-400"
                                 ><ChevronRight className="h-[22px] w-[19px] " />Why choose us?</a>
                             </p>
@@ -93,10 +93,10 @@ export default function Footer() {
                             <p className="mb-4">
                                 <a href={'/'} className=" text-[14px]  flex  text-white hover:text-orange-400"
                                 ><ChevronRight className="h-[22px] w-[19px] " />Work with Us</a>
-                            </p>
+                            </p> */}
                         </div>
-                {/* <!-- Useful links section --> */}
-                {/* <div className="">
+                        {/* <!-- Useful links section --> */}
+                        {/* <div className="">
                             <h6
                                 className="mb-4 flex justify-center font-semibold uppercase md:justify-start text-white">
                                 Popular House
@@ -126,8 +126,8 @@ export default function Footer() {
                                 > #Bunglow</a>
                             </p>
                         </div> */}
-                {/* <!-- Contact section --> */}
-                {/* <div className="">
+                        {/* <!-- Contact section --> */}
+                        {/* <div className="">
                             <h6
                                 className="mb-4 flex justify-center font-semibold uppercase md:justify-start text-white">
                                 Quicks Links
@@ -171,9 +171,9 @@ export default function Footer() {
                                 <input type="checkbox" className="mt-3"></input> I have read and agreed to all terms and conditions.
                             </div>
 
-                        </div>
+                        </div>*/}
                     </div>
-                </div> */}
+                </div>
 
                 {/* <!--Copyright section--> */}
                 <div className="bg-neutral-200 p-6 text-center dark:bg-neutral-700 hidden">

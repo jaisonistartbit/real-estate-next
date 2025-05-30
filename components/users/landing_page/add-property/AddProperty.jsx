@@ -158,8 +158,17 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
       OwnerContact.setMessageType("error");
       return false;
     }
+    const phoneRegex =
+      /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
+    if (!phoneRegex.test(value)) {
+      OwnerContact.setFeedbackMessage("Enter valid Phone Number!");
+      OwnerContact.setMessageType("error");
+      return false;
+    }
+
     OwnerContact.setFeedbackMessage("");
     OwnerContact.setMessageType("none");
+
     return true;
   };
   const TotalBathrooms = useInputComponent();
@@ -305,7 +314,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
 
     setUploadingFileFetch('Uploading attatchments...')
     let { imageUrls = null, videoUrl = null, bannerImageUrl = null } = await uploadAllMedia(PropertyImages, PropertyVideo, BannerImage, setUploadingFileFetch);
-    setUploadingFileFetch(null)
+    setUploadingFileFetch('Adding Property')
 
     try {
       const { data } = await AddProperty({
@@ -338,11 +347,14 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
         type: 'success',
         duration: 3000
       })
+      setUploadingFileFetch(null)
 
-      if (data) {
-        closeModal()
-      }
+
+      closeModal()
+
     } catch (error) {
+      setUploadingFileFetch(null)
+
       // ❌ Error log or toast
       showToast({ message: 'Error occured while adding property', type: 'error', duration: 3000 })
     }
@@ -381,9 +393,11 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
             </div>
             :
             <div>
-              <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 px-2 gap-5  overflow-y-auto custom-scrollbar  pe-3    max-h-[60vh]   ">
+              <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 px-2 pe-3 w-full max-h-[60vh] overflow-y-auto custom-scrollbar">
 
-                <div  >
+
+
+                <div className="col-span-3 lg:col-span-1 "  >
 
                   <InputWithAddOnMultiple
                     label="Property Name"
@@ -405,7 +419,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
                     extraProps={{ style: { height: "32px", width: '100%' } }}
                   />
                 </div>
-                <div  >
+                <div className="col-span-3 lg:col-span-1 " >
                   <InputWithAddOnMultiple
                     label="Total Rooms"
                     placeholder=""
@@ -427,7 +441,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
                     extraProps={{ style: { height: "32px", width: '100%' } }}
                   />
                 </div>
-                <div  >
+                <div className="col-span-3 lg:col-span-1 " >
                   <InputWithAddOnMultiple
                     label="Total Bathrooms"
                     placeholder=""
@@ -449,7 +463,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
                     type="number"
                   />
                 </div>
-                <div  >
+                <div className="col-span-3 lg:col-span-1 " >
                   <InputWithAddOnMultiple
                     label="Dimensions"
                     placeholder=""
@@ -471,7 +485,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
                   />
                 </div>
 
-                <div  >
+                <div className="col-span-3 lg:col-span-1 " >
                   <InputWithAddOnMultiple
                     label="Price"
                     placeholder=""
@@ -495,7 +509,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
                 </div>
 
 
-                <div>
+                <div className="col-span-3 lg:col-span-1 " >
                   <InputWithAddOnMultiple
                     label="Owner Name"
                     placeholder=""
@@ -516,7 +530,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
                     extraProps={{ style: { height: "32px", width: '100%' } }}
                   />
                 </div>
-                <div>
+                <div className="col-span-3 lg:col-span-1 " >
                   <InputWithAddOnMultiple
                     label="Owner Contact"
                     placeholder=""
@@ -531,6 +545,8 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
                     reset={OwnerContact.reset}
                     isRequired={true}
                     disabled={false}
+                    type="number"
+
                     onBlurAction={(e) => {
                       // blurInputAction(e, "Transport_Equipment_ID");
                     }}
@@ -539,7 +555,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
                 </div>
 
 
-                <div  >
+                <div className="col-span-3 lg:col-span-1 "  >
                   <InputWithAddOnMultiple
                     label="Lattitude"
                     placeholder=""
@@ -562,7 +578,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
                   />
                 </div>
 
-                <div  >
+                <div className="col-span-3 lg:col-span-1 "  >
                   <InputWithAddOnMultiple
                     label="Longitude"
                     placeholder=""
@@ -587,7 +603,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
 
 
 
-                <div>
+                <div className="col-span-3 lg:col-span-1 " >
 
                   <InputWithAddOnMultiple
                     label="Property Type"
@@ -611,7 +627,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
 
                 </div>
 
-                <div>
+                <div className="col-span-3 lg:col-span-1 " >
 
                   <InputWithAddOnMultiple
                     label="City"
@@ -635,7 +651,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
 
                 </div>
 
-                <div>
+                <div className="col-span-3 lg:col-span-1 " >
 
                   <InputWithAddOnMultiple
                     label="State"
@@ -705,7 +721,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
                   />
                 </div>
 
-                <div   >
+                <div className="col-span-3 lg:col-span-1 "  >
                   <label className="text-start block mb-2 text-sm font-medium text-gray-700">
                     Property Banner Image
                   </label>
@@ -722,7 +738,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
                   />
                 </div>
 
-                <div   >
+                <div className="col-span-3 lg:col-span-1 "   >
                   <label className="text-start block mb-2 text-sm font-medium text-gray-700">
                     Property Other Images
                   </label>
@@ -740,7 +756,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
                   />
                 </div>
 
-                <div>
+                <div className="col-span-3 lg:col-span-1 "  >
                   <label className="block text-start mb-2 text-sm font-medium text-gray-700">
                     Property Video
                   </label>
@@ -758,7 +774,9 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
               </div>
               <div className="mt-6 flex justify-end gap-2">
                 <button
-                  onClick={closeModal}
+                  onClick={() => {
+                    closeModal();
+                  }}
                   className="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300"
                 >
                   Cancel

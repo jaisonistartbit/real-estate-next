@@ -1,5 +1,6 @@
 
 import CardView from './CardView';
+import ViewAllPropeties from './ViewAllPropeties';
 
 const fetchProperties = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_GRAPHQL_API}/graphql`, {
@@ -30,15 +31,12 @@ const fetchProperties = async () => {
     });
 
     const json = await res.json();
-    console.log();
-    
     return json?.data?.getProperties || [];
 };
 
 export default async function FlatListing() {
     const properties = await fetchProperties();
 
-console.log('properties',properties);
 
     return (
         <div className="">
@@ -55,7 +53,12 @@ console.log('properties',properties);
                         <CardView item={property} key={property.id} />
                     ))}
                 </div>
+                {(properties ?? [])?.length == 6 &&
+                    <ViewAllPropeties />
+                }
             </div>
         </div>
     );
 }
+
+
