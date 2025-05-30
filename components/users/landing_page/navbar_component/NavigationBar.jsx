@@ -54,7 +54,7 @@ export default function NavigationBar({ children }) {
                     <div className="block lg:hidden">
                         <MenuOutlined onClick={() => setDrawerOpen(true)} className="text-lg cursor-pointer" />
                     </div>
-                    <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push('/')}> 
+                    <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push('/')}>
                         <img src="/svgs/logo.svg" alt="logo" className="h-[30px] w-[30px]" />
                         <div>
                             <h1 className="text-xl font-bold text-orange-500">HOMIES</h1>
@@ -64,36 +64,36 @@ export default function NavigationBar({ children }) {
                 </div>
 
                 <div className="hidden lg:flex gap-10 text-sm font-medium text-gray-700">
-                    <div onClick={() => router.push("/")} className="cursor-pointer text-lg hover:text-orange-500 flex items-center gap-1 hover:border-b-4 hover:border-orange-400">Home</div>
-                    <div onClick={() => router.push("/properties")} className="cursor-pointer text-lg hover:text-orange-500 flex items-center gap-1 hover:border-b-4 hover:border-orange-400">Property</div>
-                    <div onClick={() => router.push("/about-us")} className="cursor-pointer text-lg hover:text-orange-500 flex items-center gap-1 hover:border-b-4 hover:border-orange-400">About Us</div>
-                    <div onClick={() => router.push("/about-us")} className="cursor-pointer text-lg hover:text-orange-500 flex items-center gap-1 hover:border-b-4 hover:border-orange-400">Contact Us</div>
+                    <div onClick={() => router.push("/")} className="cursor-pointer text-[17px] hover:text-orange-500 flex items-center gap-1 hover:border-b-4 hover:border-orange-400">Home</div>
+                    <div onClick={() => router.push("/properties")} className="cursor-pointer text-[17px] hover:text-orange-500 flex items-center gap-1 hover:border-b-4 hover:border-orange-400">Property</div>
+                    <div onClick={() => router.push("/about-us")} className="cursor-pointer text-[17px] hover:text-orange-500 flex items-center gap-1 hover:border-b-4 hover:border-orange-400">About Us</div>
+                    <div onClick={() => router.push("/about-us")} className="cursor-pointer text-[17px] hover:text-orange-500 flex items-center gap-1 hover:border-b-4 hover:border-orange-400">Contact Us</div>
 
                     <div className="relative" ref={citiesRef}>
                         <div
                             onClick={() => setNearByCitiesClicked(!nearByCitiesClicked)}
-                            className="cursor-pointer text-lg hover:text-orange-500 flex items-center gap-1 hover:border-b-4 hover:border-orange-400"
+                            className="cursor-pointer text-[17px] hover:text-orange-500 flex items-center gap-1 hover:border-b-4 hover:border-orange-400"
                         >
                             Near By Cities <DownOutlined style={{ fontSize: '12px' }} />
                         </div>
                         {nearByCitiesClicked && (
                             <div className="absolute bg-white shadow-md border border-gray-200 rounded-md mt-2 z-50 min-w-[150px] py-2">
-                               
 
-                                <DropdownItem icon={<MapPinHouse />} label="Jaipur" onClick={() => router.push(`/city/Jaipur`)} />
+
+                                <DropdownItem icon={<MapPinHouse style={{height:'17px'}}/>} label="Jaipur" onClick={() => router.push(`/city/Jaipur`)} />
                                 {/* <DropdownItem icon={<UserRoundPen />} label="My Profile" /> */}
-                                <DropdownItem icon={<MapPinHouse />} label="Kota" onClick={() => router.push(`/city/Kota`)} />
-                                <DropdownItem icon={<MapPinHouse />} label="Delhi" onClick={() => router.push(`/city/Delhi`)} />
+                                <DropdownItem icon={<MapPinHouse  style={{height:'17px'}}/>} label="Kota" onClick={() => router.push(`/city/Kota`)} />
+                                <DropdownItem icon={<MapPinHouse style={{height:'17px'}} />} label="Delhi" onClick={() => router.push(`/city/Delhi`)} />
                                 {/* <DropdownItem icon={<MapPinHouse />} label="Jodhpur" onClick={() => router.push(`/city/Jodhpur`)} />
                                 <DropdownItem icon={<MapPinHouse />} label="Kolkata" onClick={() => router.push(`/city/Kolkata`)} /> */}
-                                <DropdownItem icon={<MapPinHouse />} label="Mumbai" onClick={() => router.push(`/city/Mumbai`)} />
+                                <DropdownItem icon={<MapPinHouse  style={{height:'17px'}}/>} label="Mumbai" onClick={() => router.push(`/city/Mumbai`)} />
                             </div>
                         )}
                     </div>
                 </div>
 
                 <div className="flex items-center gap-4">
-                    <div className="hidden lg:flex items-center gap-2 text-lg text-gray-700">
+                    <div className="hidden lg:flex items-center gap-2 text-[17px]  text-gray-700">
                         <Phone style={{ color: 'rgb(251 146 60)', height: '18px' }} />
                         <span>(603) 555-0123</span>
                     </div>
@@ -156,7 +156,7 @@ export default function NavigationBar({ children }) {
 const DropdownItem = ({ icon, label, onClick }) => (
     <div onClick={(e) => { e.stopPropagation(); onClick(); }} className="flex items-center gap-3 px-3 py-2 hover:bg-orange-100 cursor-pointer transition-all">
         <span className="text-gray-500 text-[16px]">{icon}</span>
-        <span className="text-sm text-gray-700">{label}</span>
+        <span className="text-[16px] text-gray-700">{label}</span>
     </div>
 );
 
