@@ -41,12 +41,12 @@ const MyPropertyListing = ({ properties }) => {
                     {/* Right Details */}
                     <div className="md:ml-6 mt-4 md:mt-0 md:w-2/3 w-full space-y-1 text-slate-700">
                         <h2 className="text-2xl font-bold text-slate-800 mb-2">{property?.name}</h2>
-                        <p><span className="font-semibold text-indigo-500">Flat Type:</span> {property?.property_type}</p>
-                        <p><span className="font-semibold text-indigo-500">Location:</span> {property?.location}</p>
-                        <p><span className="font-semibold text-indigo-500">Price:</span> <span className="text-lg font-bold text-teal-600">₹{property?.price.toLocaleString()}</span></p>
-                        <p><span className="font-semibold text-indigo-500">Total Rooms:</span> {property?.total_rooms}</p>
-                        <p><span className="font-semibold text-indigo-500">Total Bathrooms:</span> {property?.total_bathroom}</p>
-                        <p><span className="font-semibold text-indigo-500">Dimension:</span> {property?.dimension}</p>
+                        <p><span className="font-semibold  ">Flat Type:</span> {property?.property_type}</p>
+                        <p><span className="font-semibold  ">Location:</span> {property?.location}</p>
+                        <p><span className="font-semibold  ">Price:</span> <span className="text-lg font-bold text-orange-600">₹{property?.price.toLocaleString()}</span></p>
+                        <p><span className="font-semibold  ">Total Rooms:</span> {property?.total_rooms}</p>
+                        <p><span className="font-semibold  ">Total Bathrooms:</span> {property?.total_bathroom}</p>
+                        <p><span className="font-semibold  ">Dimension:</span> {property?.dimension}</p>
                     </div>
                 </div>
             ))}

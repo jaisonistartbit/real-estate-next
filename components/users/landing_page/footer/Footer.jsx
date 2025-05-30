@@ -74,86 +74,86 @@ export default function Footer() {
                                 <a href={'/about-us'} className=" text-[14px]  flex  text-white hover:text-orange-400"
                                 ><ChevronRight className="h-[22px] w-[19px] " />About Us</a>
                             </p>
-                            {/* <p className="mb-4">
-                                <a href={'/'} className=" text-[14px]  flex  text-white hover:text-orange-400"
+                            <p className="mb-4">
+                                <a href={'/about-us'} className=" text-[14px]  flex  text-white hover:text-orange-400"
                                 ><ChevronRight className="h-[22px] w-[19px] " />Why choose us?</a>
                             </p>
                             <p className="mb-4">
-                                <a href={'/'} className=" text-[14px]  flex  text-white hover:text-orange-400"
+                                <a href={'/about-us'} className=" text-[14px]  flex  text-white hover:text-orange-400"
                                 ><ChevronRight className="h-[22px] w-[19px] " />Customer reviews</a>
                             </p>
                             <p className="mb-4">
-                                <a href={'/'} className=" text-[14px]  flex  text-white hover:text-orange-400"
+                                <a href={'/about-us'} className=" text-[14px]  flex  text-white hover:text-orange-400"
                                 ><ChevronRight className="h-[22px] w-[19px] " />Our team</a>
                             </p>
                             <p className="mb-4">
-                                <a href={'/'} className=" text-[14px]  flex  text-white hover:text-orange-400"
+                                <a href={'/about-us'} className=" text-[14px]  flex  text-white hover:text-orange-400"
                                 ><ChevronRight className="h-[22px] w-[19px] " />Careers with reality</a>
                             </p>
                             <p className="mb-4">
-                                <a href={'/'} className=" text-[14px]  flex  text-white hover:text-orange-400"
+                                <a href={'/about-us'} className=" text-[14px]  flex  text-white hover:text-orange-400"
                                 ><ChevronRight className="h-[22px] w-[19px] " />Work with Us</a>
-                            </p> */}
+                            </p>
                         </div>
                         {/* <!-- Useful links section --> */}
-                        {/* <div className="">
+                        <div className="">
                             <h6
                                 className="mb-4 flex justify-center font-semibold uppercase md:justify-start text-white">
                                 Popular House
                             </h6>
                             <p className="mb-4">
-                                <a href={'/'} className="text-[14px]  flex  text-white hover:text-orange-400"
+                                <a href={'/properties'} className="text-[14px]  flex  text-white hover:text-orange-400"
                                 > #Penthouses</a>
                             </p>
                             <p className="mb-4">
-                                <a href={'/'} className="text-[14px]  flex  text-white hover:text-orange-400"
+                                <a href={'/properties'} className="text-[14px]  flex  text-white hover:text-orange-400"
                                 > #Villas</a>
                             </p>
                             <p className="mb-4">
-                                <a href={'/'} className="text-[14px]  flex  text-white hover:text-orange-400"
+                                <a href={'/properties'} className="text-[14px]  flex  text-white hover:text-orange-400"
                                 >  #Smart home</a>
                             </p>
                             <p className="mb-4">
-                                <a href={'/'} className=" text-[14px] flex  text-white hover:text-orange-400"
+                                <a href={'/properties'} className=" text-[14px] flex  text-white hover:text-orange-400"
                                 > #Appartments</a>
                             </p>
                             <p className="mb-4">
-                                <a href={'/'} className="text-[14px]  flex  text-white hover:text-orange-400"
+                                <a href={'/properties'} className="text-[14px]  flex  text-white hover:text-orange-400"
                                 >  #Office</a>
                             </p>
                             <p className="mb-4">
-                                <a href={'/'} className="text-[14px]  flex  text-white hover:text-orange-400"
+                                <a href={'/properties'} className="text-[14px]  flex  text-white hover:text-orange-400"
                                 > #Bunglow</a>
                             </p>
-                        </div> */}
+                        </div>
                         {/* <!-- Contact section --> */}
-                        {/* <div className="">
+                        <div className="">
                             <h6
                                 className="mb-4 flex justify-center font-semibold uppercase md:justify-start text-white">
                                 Quicks Links
                             </h6>
                             <p className="mb-4">
-                                <a href={'/'} className=" text-[14px] flex  text-white hover:text-orange-400"
+                                <a href={'/about-us'} className=" text-[14px] flex  text-white hover:text-orange-400"
                                 ><ChevronRight className="h-[22px] w-[19px] " />Terms of use</a>
                             </p>
                             <p className="mb-4">
-                                <a href={'/'} className=" text-[14px] flex  text-white hover:text-orange-400"
+                                <a href={'/about-us'} className=" text-[14px] flex  text-white hover:text-orange-400"
                                 ><ChevronRight className="h-[22px] w-[19px] " />Privacy policy</a>
                             </p>
                             <p className="mb-4">
-                                <a href={'/'} className=" text-[14px] flex  text-white hover:text-orange-400"
+                                <a href={'/about-us'} className=" text-[14px] flex  text-white hover:text-orange-400"
                                 ><ChevronRight className="h-[22px] w-[19px] " /> Our services</a>
                             </p>
                             <p className="mb-4">
-                                <a href={'/'} className=" text-[14px] flex  text-white hover:text-orange-400"
+                                <a href={'/about-us'} className=" text-[14px] flex  text-white hover:text-orange-400"
                                 ><ChevronRight className="h-[22px] w-[19px] " />Contact support</a>
                             </p>
                             <p className="mb-4">
-                                <a href={'/'} className=" text-[14px] flex  text-white hover:text-orange-400"
+                                <a href={'/about-us'} className=" text-[14px] flex  text-white hover:text-orange-400"
                                 ><ChevronRight className="h-[22px] w-[19px] " /> Pricing plan</a>
                             </p>
                             <p className="mb-4">
-                                <a href={'/'} className=" text-[14px] flex  text-white hover:text-orange-400"
+                                <a href={'/about-us'} className=" text-[14px] flex  text-white hover:text-orange-400"
                                 ><ChevronRight className="h-[22px] w-[19px] " />Faqs</a>
                             </p>
                         </div>
@@ -171,7 +171,7 @@ export default function Footer() {
                                 <input type="checkbox" className="mt-3"></input> I have read and agreed to all terms and conditions.
                             </div>
 
-                        </div>*/}
+                        </div>
                     </div>
                 </div>
 
