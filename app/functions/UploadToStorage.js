@@ -1,4 +1,5 @@
 "use client";
+
 import { supabase } from "@/lib/supabase";
 
 export const uploadToStorage = async (file, folder = "properties") => {
