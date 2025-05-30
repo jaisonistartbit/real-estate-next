@@ -32,11 +32,11 @@ export default function AboutUs() {
                         </p>
 
                         <p className="mt-4 text-gray-700 leading-relaxed text-lg">
-                            Whether you're looking for your first apartment, a family-friendly home, or a trendy co-living space, we make discovering, renting, and managing properties seamless. Our listings include verified homes, flexible rentals, neighborhood insights, and end-to-end support to help you find the perfect fit.
+                            Whether you&apos;re looking for your first apartment, a family-friendly home, or a trendy co-living space, we make discovering, renting, and managing properties seamless. Our listings include verified homes, flexible rentals, neighborhood insights, and end-to-end support to help you find the perfect fit.
                         </p>
 
                         <p className="mt-4 text-gray-700 leading-relaxed text-lg">
-                            At Homies.com, we are driven by innovation, trust, and a shared vision: making renting simple, fair, and fulfilling for everyone involved. With dedicated support, smart tools, and the power of community, we’re redefining the rental journey across India.
+                            At Homies.com, we are driven by innovation, trust, and a shared vision: making renting simple, fair, and fulfilling for everyone involved. With dedicated support, smart tools, and the power of community, we&apos;re redefining the rental journey across India.
                         </p>
 
                         <div className="mt-10">
@@ -47,7 +47,7 @@ export default function AboutUs() {
 
                             <h2 className="text-xl font-bold mt-6 mb-2 text-orange-600">Our mission</h2>
                             <p className="text-gray-700 leading-relaxed">
-                                To be India’s most trusted home rental platform — making it easy for people to discover, rent, and manage homes, while empowering landlords and agents with reliable digital tools.
+                                To be India&apos;s most trusted home rental platform — making it easy for people to discover, rent, and manage homes, while empowering landlords and agents with reliable digital tools.
                             </p>
                         </div>
                     </div>
