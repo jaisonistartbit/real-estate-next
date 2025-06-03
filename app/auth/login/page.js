@@ -21,7 +21,7 @@ export default function LoginPage() {
       password,
     });
     if (error) setError(error.message);
-    else router.push('/dashboard');
+    else router.push('/');
   };
 
   const handleOAuth = async (provider) => {
