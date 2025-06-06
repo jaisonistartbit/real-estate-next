@@ -3,10 +3,10 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    'https://appupdgxzspiysbpybcz.supabase.co',
+   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFwcHVwZGd4enNwaXlzYnB5YmN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTUyMDAsImV4cCI6MjA1OTY3MTIwMH0.5KS6T4cmosmy7-kscITPvsUKFYKU1af7-Qmn5KmIGdE'
 );
-
+ 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
