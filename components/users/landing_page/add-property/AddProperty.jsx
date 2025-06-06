@@ -8,10 +8,11 @@ import client from '@/lib/apolloClient';
 import { uploadToStorage } from "@/app/functions/UploadToStorage";
 import { useState } from "react";
 import InputTextAreaMultiple from "@/components/forminputs/InputTextAreaMultiple";
-// import { InputSelect2 } from "@/components/forminputs/Select/InputSelect";
 import { Modal } from "@/components/modal";
-import ToastNotification from "@/components/alerts/ToastNotification";
 import { useToast } from '@/components/alerts/ToastContext';
+import InputSelect from "@/components/forminputs/Select/InputSelect";
+import { AmenitiesSelect, AvailableForSelect, AvailableFromSelect, FurnishingStatusSelect, PostedBySelect, PropertyTypeSelect } from "@/staticData/OptionMenus";
+import InputMultipleSelect from "@/components/forminputs/Select/InputMultipleSelect";
 const ADD_PROPERTY = gql`
   mutation AddProperty(
     $name: String!
@@ -34,6 +35,12 @@ const ADD_PROPERTY = gql`
     $location_latitude: Float
     $location_longitude: Float
     $isbooked: Boolean
+    $furnishing_status: String
+    $available_for: String
+    $available_from: String
+    $posted_by: String
+    $amenities: [String]
+    $property_age: Int
     $user_id: ID!
   ) {
     addProperty(
@@ -57,16 +64,17 @@ const ADD_PROPERTY = gql`
       location_latitude: $location_latitude
       location_longitude: $location_longitude
       isbooked: $isbooked
+      furnishing_status: $furnishing_status
+      available_for: $available_for
+      available_from: $available_from
+      posted_by: $posted_by
+      amenities: $amenities
+      property_age: $property_age
       user_id: $user_id
     ) {
       id
       name
-      price
-      location
-      city
-      state
-      isbooked
-      user_id
+      
     }
   }
 `;
@@ -76,7 +84,6 @@ const ADD_PROPERTY = gql`
 const AddProperty = ({ isOpen, toggle, closeModal }) => {
   if (!isOpen) return null;
   const { showToast } = useToast();
-  const [showToasts, setShowToast] = useState(false);
   const [BannerImage, setbannerImage] = useState(null)
   const [PropertyVideo, setPropertyVideo] = useState(null)
   const [PropertyImages, setPropertyImages] = useState([])
@@ -208,19 +215,143 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
   };
 
 
-  const PropertyType = useInputComponent();
+
+
+  const [PropertyType, setPropertyType] = useState([])
+  const [PropertyTypeFeedbackMessage, setPropertyTypeFeedBackMessage] = useState({
+    type: "info",
+    message: "",
+  });
+  const [PropertyTypeIsTouch, setPropertyTypeIsTouch] =
+    useState(false);
   const PropertyTypeValidater = (value) => {
     if (value === "" || !value) {
-      PropertyType.setFeedbackMessage("Field required!");
-      PropertyType.setMessageType("error");
+      setPropertyTypeFeedBackMessage({
+        type: "error",
+        message: "Select Property Type!",
+      });
       return false;
     }
-    PropertyType.setFeedbackMessage("");
-    PropertyType.setMessageType("none");
+    setPropertyTypeFeedBackMessage({ type: "info", message: "" });
+
+    return true;
+  };
+
+  const [Amenities, setAmenities] = useState([])
+  const [AmenitiesIsTouch, setAmenitiesIsTouch] =
+    useState(false);
+  const [AmenitiesFeedbackMessage, setAmenitiesFeedBackMessage] = useState({
+    type: "info",
+    message: "",
+  });
+  const AmenitiesValidater = (value) => {
+    if (value === "" || !value) {
+      setAmenitiesFeedBackMessage({
+        type: "error",
+        message: "Select Amenities!",
+      });
+      return false;
+    }
+    setAmenitiesFeedBackMessage({ type: "info", message: "" });
+
     return true;
   };
 
 
+
+  const [FurnishingStatus, setFurnishingStatus] = useState([])
+  const [FurnishingStatusIsTouch, setFurnishingStatusIsTouch] =
+    useState(false);
+  const [FurnishingStatusFeedbackMessage, setFurnishingStatusFeedBackMessage] = useState({
+    type: "info",
+    message: "",
+  });
+  const FurnishingStatusValidater = (value) => {
+    if (value === "" || !value) {
+      setFurnishingStatusFeedBackMessage({
+        type: "error",
+        message: "Select Furnishing Status!",
+      });
+      return false;
+    }
+    setFurnishingStatusFeedBackMessage({ type: "info", message: "" });
+
+    return true;
+  };
+
+
+  const [AvailableFor, setAvailableFor] = useState([])
+  const [AvailableForIsTouch, setAvailableForIsTouch] =
+    useState(false);
+  const [AvailableForFeedbackMessage, setAvailableForFeedBackMessage] = useState({
+    type: "info",
+    message: "",
+  });
+  const AvailableForValidater = (value) => {
+    if (value === "" || !value) {
+      setAvailableForFeedBackMessage({
+        type: "error",
+        message: "Field Required!",
+      });
+      return false;
+    }
+    setAvailableForFeedBackMessage({ type: "info", message: "" });
+
+    return true;
+  };
+
+
+  const [AvailableForm, setAvailableForm] = useState([])
+  const [AvailableFormIsTouch, setAvailableFormIsTouch] =
+    useState(false);
+  const [AvailableFormFeedbackMessage, setAvailableFormFeedBackMessage] = useState({
+    type: "info",
+    message: "",
+  });
+  const AvailableFormValidater = (value) => {
+    if (value === "" || !value) {
+      setAvailableFormFeedBackMessage({
+        type: "error",
+        message: "Field Required!",
+      });
+      return false;
+    }
+    setAvailableFormFeedBackMessage({ type: "info", message: "" });
+
+    return true;
+  };
+
+  const [PostedBy, setPostedBy] = useState([])
+  const [PostedByIsTouch, setPostedByIsTouch] =
+    useState(false);
+  const [PostedByFeedbackMessage, setPostedByFeedBackMessage] = useState({
+    type: "info",
+    message: "",
+  });
+  const PostedByValidater = (value) => {
+    if (value === "" || !value) {
+      setPostedByFeedBackMessage({
+        type: "error",
+        message: "Field Required!",
+      });
+      return false;
+    }
+    setPostedByFeedBackMessage({ type: "info", message: "" });
+
+    return true;
+  };
+
+  const PropertyAge = useInputComponent();
+  const PropertyAgeValidater = (value) => {
+    if (value === "" || !value) {
+      PropertyAge.setFeedbackMessage("Field required!");
+      PropertyAge.setMessageType("error");
+      return false;
+    }
+    PropertyAge.setFeedbackMessage("");
+    PropertyAge.setMessageType("none");
+    return true;
+  };
 
   const Location = useInputComponent();
   const LocationValidater = (value) => {
@@ -283,15 +414,20 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
     let OwnerContactValidator = OwnerContactValidater(OwnerContact.enteredValue)
     let OwnerNameValidator = OwnerNameValidater(OwnerName.enteredValue)
     let PropertyDescriptionValidator = PropertyDescriptionValidater(PropertyDescription.enteredValue)
-    let PropertyTypeValidator = PropertyTypeValidater(PropertyType.enteredValue)
+    let PropertyTypeValidator = PropertyTypeValidater(PropertyType)
     let CityValidator = CityValidater(City.enteredValue)
     let StateValidator = StateValidater(State.enteredValue)
+    let PropertyAgeValidator = PropertyAgeValidater(PropertyAge.enteredValue);
+    let FurnishingStatusValidator = FurnishingStatusValidater(FurnishingStatus);
+    let AvailableForValidator = AvailableForValidater(AvailableFor);
+    let AvailableFormValidator = AvailableFormValidater(AvailableForm);
+    let PostedByValidator = PostedByValidater(PostedBy);
+    let AmenitiesValidator = AmenitiesValidater(Amenities);
 
 
 
 
-
-    if (!PropertyNameValidator || !TotalRoomsValidator || !TotalBathroomsValidator || !DimensionsValidator || !PriceValidator || !LocationValidator || !LocationLattitudeValidator || !LocationLongitudeValidator || !OwnerContactValidator || !OwnerNameValidator || !PropertyDescriptionValidator || !PropertyTypeValidator || !CityValidator || !StateValidator) {
+    if (!PropertyNameValidator || !TotalRoomsValidator || !TotalBathroomsValidator || !DimensionsValidator || !PriceValidator || !LocationValidator || !LocationLattitudeValidator || !LocationLongitudeValidator || !OwnerContactValidator || !OwnerNameValidator || !PropertyDescriptionValidator || !PropertyTypeValidator || !CityValidator || !StateValidator || !PropertyAgeValidator || !FurnishingStatusValidator || !AvailableForValidator || !AvailableFormValidator || !PostedByValidator || !AmenitiesValidator) {
 
       NotificationAlert('error', 'Fill all the required fields.')
       return false
@@ -324,7 +460,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
           total_bathroom: Number(TotalBathrooms.enteredValue),
           dimension: Dimensions.enteredValue,
           price: Number(Price.enteredValue),
-          property_type: PropertyType.enteredValue,
+          property_type: PropertyType,
           location: Location.enteredValue,
           property_banner_image: bannerImageUrl,
           images: imageUrls ?? [],
@@ -339,6 +475,12 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
           isbooked: false,
           banner_image_name: BannerImage?.[0]?.name,
           property_video_name: PropertyVideo?.[0]?.name,
+          furnishing_status: FurnishingStatus,
+          available_for: AvailableFor,
+          available_from: AvailableForm,
+          posted_by: PostedBy,
+          amenities: (Amenities ?? []).map(a => a.value),
+          property_age: Number(PropertyAge.enteredValue),
           user_id: "cf728789-92d2-4d26-82e0-6c2018fb9c86"
         }
       });
@@ -369,7 +511,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
       onClose={() => {
         closeModal();
       }}
-      className="max-w-[900px] m-4  "
+      className="max-w-[1000px] m-4  "
     >
 
       <div className="w-full p-4 lg:p-11   overflow-y-auto no-scrollbar">
@@ -416,7 +558,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
                     onBlurAction={(e) => {
                       // blurInputAction(e, "Transport_Equipment_ID");
                     }}
-                    extraProps={{ style: { height: "32px", width: '100%' } }}
+                    extraProps={{ style: { height: "35px", width: '100%' } }}
                   />
                 </div>
                 <div className="col-span-3 lg:col-span-1 " >
@@ -438,7 +580,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
                     onBlurAction={(e) => {
                       // blurInputAction(e, "Transport_Equipment_ID");
                     }}
-                    extraProps={{ style: { height: "32px", width: '100%' } }}
+                    extraProps={{ style: { height: "35px", width: '100%' } }}
                   />
                 </div>
                 <div className="col-span-3 lg:col-span-1 " >
@@ -459,7 +601,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
                     onBlurAction={(e) => {
                       // blurInputAction(e, "Transport_Equipment_ID");
                     }}
-                    extraProps={{ style: { height: "32px", width: '100%' } }}
+                    extraProps={{ style: { height: "35px", width: '100%' } }}
                     type="number"
                   />
                 </div>
@@ -481,7 +623,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
                     onBlurAction={(e) => {
                       // blurInputAction(e, "Transport_Equipment_ID");
                     }}
-                    extraProps={{ style: { height: "32px", width: '100%' } }}
+                    extraProps={{ style: { height: "35px", width: '100%' } }}
                   />
                 </div>
 
@@ -503,12 +645,146 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
                     onBlurAction={(e) => {
                       // blurInputAction(e, "Transport_Equipment_ID");
                     }}
-                    extraProps={{ style: { height: "32px", width: '100%' } }}
+                    extraProps={{ style: { height: "35px", width: '100%' } }}
                     type="number"
                   />
                 </div>
 
+                <div className="col-span-3 lg:col-span-1 " >
 
+                  <InputSelect
+                    label="Property Type"
+                    options={PropertyTypeSelect ?? []}
+                    placeholder=""
+                    className="loginInputs"
+                    value={PropertyType}
+                    setValue={setPropertyType}
+                    setIsTouched={setPropertyTypeIsTouch}
+                    feedbackMessage={PropertyTypeFeedbackMessage.message}
+                    feedbackType={PropertyTypeFeedbackMessage.type}
+                    isTouched={PropertyTypeIsTouch.isTouched}
+                    validateHandler={PropertyTypeValidater}
+                    isRequired={true}
+                    disabled={false}
+                    extraProps={{ style: { height: "35px", width: '100%' } }}
+                  />
+                </div>
+
+                <div>
+                  <InputWithAddOnMultiple
+                    label="Property Age"
+                    placeholder=""
+                    className="loginInputs"
+                    value={PropertyAge.enteredValue}
+                    setValue={PropertyAge.setEnteredValue}
+                    setIsTouched={PropertyAge.setIsTouched}
+                    feedbackMessage={PropertyAge.feedbackMessage}
+                    feedbackType={PropertyAge.messageType}
+                    isTouched={PropertyAge.isTouched}
+                    validateHandler={PropertyAgeValidater}
+                    reset={PropertyAge.reset}
+                    isRequired={true}
+                    disabled={false}
+                    onBlurAction={(e) => {
+                    }}
+                    type="number"
+                    extraProps={{ style: { height: "35px", width: '100%' } }}
+                  />
+                </div>
+
+
+
+                <div className="col-span-3 lg:col-span-1 " >
+                  <InputSelect
+                    label="Furnishing Status"
+                    options={FurnishingStatusSelect ?? []}
+                    placeholder=""
+                    className="loginInputs"
+                    value={FurnishingStatus}
+                    setValue={setFurnishingStatus}
+                    setIsTouched={setFurnishingStatusIsTouch}
+                    feedbackMessage={FurnishingStatusFeedbackMessage.message}
+                    feedbackType={FurnishingStatusFeedbackMessage.type}
+                    isTouched={FurnishingStatusIsTouch}
+                    validateHandler={FurnishingStatusValidater}
+                    isRequired={true}
+                    disabled={false}
+                    extraProps={{ style: { height: "35px", width: '100%' } }}
+                  />
+                </div>
+                <div className="col-span-3 lg:col-span-1 " >
+                  <InputSelect
+                    label="Available For"
+                    options={AvailableForSelect ?? []}
+                    placeholder=""
+                    className="loginInputs"
+                    value={AvailableFor}
+                    setValue={setAvailableFor}
+                    setIsTouched={setAvailableForIsTouch}
+                    feedbackMessage={AvailableForFeedbackMessage.message}
+                    feedbackType={AvailableForFeedbackMessage.type}
+                    isTouched={AvailableForIsTouch}
+                    validateHandler={AvailableForValidater}
+                    isRequired={true}
+                    disabled={false}
+                    extraProps={{ style: { height: "35px", width: '100%' } }}
+                  />
+                </div>
+                <div className="col-span-3 lg:col-span-1 " >
+                  <InputSelect
+                    label="Available Form"
+                    options={AvailableFromSelect ?? []}
+                    placeholder=""
+                    className="loginInputs"
+                    value={AvailableForm}
+                    setValue={setAvailableForm}
+                    setIsTouched={setAvailableFormIsTouch}
+                    feedbackMessage={AvailableFormFeedbackMessage.message}
+                    feedbackType={AvailableFormFeedbackMessage.type}
+                    isTouched={AvailableFormIsTouch}
+                    validateHandler={AvailableFormValidater}
+                    isRequired={true}
+                    disabled={false}
+                    extraProps={{ style: { height: "35px", width: '100%' } }}
+                  />
+                </div>
+                <div className="col-span-3 lg:col-span-1 " >
+                  <InputMultipleSelect
+                    label="Amenities"
+                    options={AmenitiesSelect ?? []}
+                    placeholder=""
+                    className="loginInputs"
+                    value={Amenities}
+                    setValue={setAmenities}
+                    setIsTouched={setAmenitiesIsTouch}
+                    feedbackMessage={AmenitiesFeedbackMessage.message}
+                    feedbackType={AmenitiesFeedbackMessage.type}
+                    isTouched={AmenitiesIsTouch}
+                    validateHandler={AmenitiesValidater}
+                    isRequired={true}
+                    disabled={false}
+                    extraProps={{ style: { height: "35px", width: '100%' } }}
+                  />
+                </div>
+
+                <div className="col-span-3 lg:col-span-1 " >
+                  <InputSelect
+                    label="Posted By"
+                    options={PostedBySelect ?? []}
+                    placeholder=""
+                    className="loginInputs"
+                    value={PostedBy}
+                    setValue={setPostedBy}
+                    setIsTouched={setPostedByIsTouch}
+                    feedbackMessage={PostedByFeedbackMessage.message}
+                    feedbackType={PostedByFeedbackMessage.type}
+                    isTouched={PostedByIsTouch}
+                    validateHandler={PostedByValidater}
+                    isRequired={true}
+                    disabled={false}
+                    extraProps={{ style: { height: "35px", width: '100%' } }}
+                  />
+                </div>
                 <div className="col-span-3 lg:col-span-1 " >
                   <InputWithAddOnMultiple
                     label="Owner Name"
@@ -527,7 +803,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
                     onBlurAction={(e) => {
                       // blurInputAction(e, "Transport_Equipment_ID");
                     }}
-                    extraProps={{ style: { height: "32px", width: '100%' } }}
+                    extraProps={{ style: { height: "35px", width: '100%' } }}
                   />
                 </div>
                 <div className="col-span-3 lg:col-span-1 " >
@@ -548,13 +824,10 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
                     type="number"
 
                     onBlurAction={(e) => {
-                      // blurInputAction(e, "Transport_Equipment_ID");
                     }}
-                    extraProps={{ style: { height: "32px", width: '100%' } }}
+                    extraProps={{ style: { height: "35px", width: '100%' } }}
                   />
                 </div>
-
-
                 <div className="col-span-3 lg:col-span-1 "  >
                   <InputWithAddOnMultiple
                     label="Lattitude"
@@ -574,7 +847,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
                       // blurInputAction(e, "Transport_Equipment_ID");
                     }}
                     type="number"
-                    extraProps={{ style: { height: "32px", width: '100%' } }}
+                    extraProps={{ style: { height: "35px", width: '100%' } }}
                   />
                 </div>
 
@@ -596,36 +869,12 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
                     onBlurAction={(e) => {
                       // blurInputAction(e, "Transport_Equipment_ID");
                     }}
-                    extraProps={{ style: { height: "32px", width: '100%' } }}
+                    extraProps={{ style: { height: "35px", width: '100%' } }}
                     type="number"
                   />
                 </div>
 
 
-
-                <div className="col-span-3 lg:col-span-1 " >
-
-                  <InputWithAddOnMultiple
-                    label="Property Type"
-                    placeholder=""
-                    className="loginInputs"
-                    value={PropertyType.enteredValue}
-                    setValue={PropertyType.setEnteredValue}
-                    setIsTouched={PropertyType.setIsTouched}
-                    feedbackMessage={PropertyType.feedbackMessage}
-                    feedbackType={PropertyType.messageType}
-                    isTouched={PropertyType.isTouched}
-                    validateHandler={PropertyTypeValidater}
-                    reset={PropertyType.reset}
-                    isRequired={true}
-                    disabled={false}
-                    onBlurAction={(e) => {
-                      // blurInputAction(e, "Transport_Equipment_ID");
-                    }}
-                    extraProps={{ style: { height: "32px", width: '100%' } }}
-                  />
-
-                </div>
 
                 <div className="col-span-3 lg:col-span-1 " >
 
@@ -646,7 +895,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
                     onBlurAction={(e) => {
                       // blurInputAction(e, "Transport_Equipment_ID");
                     }}
-                    extraProps={{ style: { height: "32px", width: '100%' } }}
+                    extraProps={{ style: { height: "35px", width: '100%' } }}
                   />
 
                 </div>
@@ -670,7 +919,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
                     onBlurAction={(e) => {
                       // blurInputAction(e, "Transport_Equipment_ID");
                     }}
-                    extraProps={{ style: { height: "32px", width: '100%' } }}
+                    extraProps={{ style: { height: "35px", width: '100%' } }}
                   />
 
                 </div>
@@ -693,7 +942,7 @@ const AddProperty = ({ isOpen, toggle, closeModal }) => {
                     onBlurAction={(e) => {
                       // blurInputAction(e, "Transport_Equipment_ID");
                     }}
-                    extraProps={{ style: { height: "32px", width: '100%' } }}
+                    extraProps={{ style: { height: "35px", width: '100%' } }}
                   />
                 </div>
 

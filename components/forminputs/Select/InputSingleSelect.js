@@ -1,120 +1,121 @@
-"use client"
+"use client";
+
 import PropTypes from "prop-types";
 import { MultiSelect } from "react-multi-select-component";
-import { FormGroup } from "reactstrap";
 import { useEffect, useState } from "react";
 import uuid from "react-uuid";
 
 const InputSingleSelect = ({
   options = [],
-  value = "",
+  value = [],
   setValue,
-  Select = false,
   placeholder = "Select",
   feedbackMessage = "",
-  feedbackType = "none",
+  feedbackType = "none", // "none" | "error" | "success"
   label = "",
   validateHandler = null,
   reset = null,
   disabled = false,
-  className,
+  className = "",
   isTouched = false,
-  setIsTouched,
+  setIsTouched = () => { },
   isRequired = false,
   extraProps = {},
   name = null,
   id = null,
   labelClassName = "",
-  heightClass = null,
+  heightClass = "", // e.g., "h-10"
   hasExpand = false,
 }) => {
-  const [uuidName, setUuidName] = useState(null);
+  const [uuidName, setUuidName] = useState("");
+
   useEffect(() => {
     if (!id || !name) {
       setUuidName(uuid());
     }
-  }, []);
+  }, [id, name]);
+
+  const controlId = id ?? uuidName;
 
   return (
-    <FormGroup
-      className={` ${hasExpand ? "expand-multiple-select-dropdown" : ""} ${feedbackType === "error" ? "input-searchable-select-error" : ""
-        }  input_select_tab${heightClass ? "_" + heightClass : ""} ${disabled ? "input_select_tab_disabled" : ""
-        }`}
+    <div
+      className={`flex flex-col multi-select-input w-full ${className} ${hasExpand ? "expand-multiple-select-dropdown" : ""}`}
     >
-      {label !== "" && (
+      {label && (
         <label
-          className={` ${labelClassName} ml-1  text-truncate w-100 `}
-          htmlFor={name ?? uuidName}
-          style={{
-            userSelect: "none",
-            fontSize: "12px",
-            fontWeight: "500",
-            color: "#0F0F0F",
-          }}
+          htmlFor={controlId}
+          className={`ml-1 text-sm font-medium text-gray-800 truncate ${labelClassName}`}
         >
-          {label} {isRequired && <span className="text-danger"> *</span>}
+          {label} {isRequired && <span className="text-red-600">*</span>}
         </label>
       )}
+
       <MultiSelect
         overrideStrings={{
           allItemsAreSelected:
             (value ?? []).length > 0 ? value[0]["label"] : "",
+          selectSomeItems: placeholder,
         }}
         closeOnChangedValue={true}
         options={options}
         value={value}
-        id={id ?? uuidName}
         disabled={disabled}
+        id={controlId}
         hasSelectAll={false}
         onChange={(e) => {
-          let newValue = e.filter(
+          const newValue = e.filter(
             (obj1) => !value.some((obj2) => obj1.value === obj2.value)
           );
           setValue(newValue);
-          if (isTouched && validateHandler !== null) {
+          if (isTouched && validateHandler) {
             validateHandler(newValue);
           }
         }}
         onMenuToggle={() => {
-          // validateHandler && validateHandler(value);
           setIsTouched(true);
         }}
-        labelledBy="Select"
-        className="  "
+        labelledBy={placeholder}
+        className={`mt-1 ${heightClass} ${disabled ? "opacity-60 cursor-not-allowed" : ""}`}
         {...extraProps}
       />
 
       {feedbackType !== "none" && (
-        <div className={feedbackType + "-feedback-class  m-0 p-0 ml-1 w-100"}>
+        <p
+          className={`text-xs mt-1 ml-1 ${feedbackType === "error"
+              ? "text-red-500"
+              : feedbackType === "success"
+                ? "text-green-500"
+                : ""
+            }`}
+        >
           {feedbackMessage}
-        </div>
+        </p>
       )}
-    </FormGroup>
+    </div>
   );
 };
 
 InputSingleSelect.propTypes = {
-  Select: PropTypes.bool,
-  className: PropTypes.any,
-  disabled: PropTypes.bool,
-  extraProps: PropTypes.object,
+  options: PropTypes.array.isRequired,
+  value: PropTypes.array,
+  setValue: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
   feedbackMessage: PropTypes.string,
   feedbackType: PropTypes.string,
-  hasExpand: PropTypes.bool,
-  heightClass: PropTypes.any,
-  id: PropTypes.any,
-  isRequired: PropTypes.bool,
-  isTouched: PropTypes.bool,
   label: PropTypes.string,
-  labelClassName: PropTypes.string,
-  name: PropTypes.any,
-  options: PropTypes.array,
-  placeholder: PropTypes.string,
-  reset: PropTypes.any,
-  setIsTouched: PropTypes.func,
-  setValue: PropTypes.func,
   validateHandler: PropTypes.func,
-  value: PropTypes.any,
+  reset: PropTypes.any,
+  disabled: PropTypes.bool,
+  className: PropTypes.string,
+  isTouched: PropTypes.bool,
+  setIsTouched: PropTypes.func,
+  isRequired: PropTypes.bool,
+  extraProps: PropTypes.object,
+  name: PropTypes.string,
+  id: PropTypes.string,
+  labelClassName: PropTypes.string,
+  heightClass: PropTypes.string,
+  hasExpand: PropTypes.bool,
 };
 
 export default InputSingleSelect;

@@ -12,6 +12,9 @@ import {
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import AddProperty from "../add-property/AddProperty";
+import { Signout } from "@/functions/Signout";
+import { useAuth } from '@/context/AuthContext';
+
 
 export default function NavigationBar({ children }) {
     const [userClicked, setUserClicked] = useState(false);
@@ -21,6 +24,9 @@ export default function NavigationBar({ children }) {
     const router = useRouter();
     const userMenuRef = useRef(null);
     const citiesRef = useRef(null);
+
+    const { user, loading } = useAuth();
+
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -65,7 +71,7 @@ export default function NavigationBar({ children }) {
 
                 <div className="hidden lg:flex gap-10 text-sm font-medium text-gray-700">
                     <div onClick={() => router.push("/")} className="cursor-pointer text-[17px] hover:text-orange-500 flex items-center gap-1 hover:border-b-4 hover:border-orange-400">Home</div>
-                    <div onClick={() => router.push("/properties")} className="cursor-pointer text-[17px] hover:text-orange-500 flex items-center gap-1 hover:border-b-4 hover:border-orange-400">Property</div>
+                    <div onClick={() => router.push("/properties")} className="cursor-pointer text-[17px] hover:text-orange-500 flex items-center gap-1 hover:border-b-4 hover:border-orange-400">Properties</div>
                     <div onClick={() => router.push("/about-us")} className="cursor-pointer text-[17px] hover:text-orange-500 flex items-center gap-1 hover:border-b-4 hover:border-orange-400">About Us</div>
                     <div onClick={() => router.push("/about-us")} className="cursor-pointer text-[17px] hover:text-orange-500 flex items-center gap-1 hover:border-b-4 hover:border-orange-400">Contact Us</div>
 
@@ -80,13 +86,13 @@ export default function NavigationBar({ children }) {
                             <div className="absolute bg-white shadow-md border border-gray-200 rounded-md mt-2 z-50 min-w-[150px] py-2">
 
 
-                                <DropdownItem icon={<MapPinHouse style={{height:'17px'}}/>} label="Jaipur" onClick={() => router.push(`/city/Jaipur`)} />
+                                <DropdownItem icon={<MapPinHouse style={{ height: '17px' }} />} label="Jaipur" onClick={() => router.push(`/city/Jaipur`)} />
                                 {/* <DropdownItem icon={<UserRoundPen />} label="My Profile" /> */}
-                                <DropdownItem icon={<MapPinHouse  style={{height:'17px'}}/>} label="Kota" onClick={() => router.push(`/city/Kota`)} />
-                                <DropdownItem icon={<MapPinHouse style={{height:'17px'}} />} label="Delhi" onClick={() => router.push(`/city/Delhi`)} />
+                                <DropdownItem icon={<MapPinHouse style={{ height: '17px' }} />} label="Kota" onClick={() => router.push(`/city/Kota`)} />
+                                <DropdownItem icon={<MapPinHouse style={{ height: '17px' }} />} label="Delhi" onClick={() => router.push(`/city/Delhi`)} />
                                 {/* <DropdownItem icon={<MapPinHouse />} label="Jodhpur" onClick={() => router.push(`/city/Jodhpur`)} />
                                 <DropdownItem icon={<MapPinHouse />} label="Kolkata" onClick={() => router.push(`/city/Kolkata`)} /> */}
-                                <DropdownItem icon={<MapPinHouse  style={{height:'17px'}}/>} label="Mumbai" onClick={() => router.push(`/city/Mumbai`)} />
+                                <DropdownItem icon={<MapPinHouse style={{ height: '17px' }} />} label="Mumbai" onClick={() => router.push(`/city/Mumbai`)} />
                             </div>
                         )}
                     </div>
@@ -97,21 +103,44 @@ export default function NavigationBar({ children }) {
                         <Phone style={{ color: 'rgb(251 146 60)', height: '18px' }} />
                         <span>(603) 555-0123</span>
                     </div>
-                    <div className="hidden lg:block">
-                        <button className="text-orange-400 py-2 px-4 border border-orange-400 rounded-[10px] hover:bg-orange-400 hover:text-white cursor-pointer" onClick={() => setAddProperty(!addProperty)}>
-                            Add Property
-                        </button>
-                    </div>
+                    {
+                        (user) &&
+                        <div className="hidden lg:block">
+                            <button className="text-orange-400 py-2 px-4 border border-orange-400 rounded-[10px] hover:bg-orange-400 hover:text-white cursor-pointer" onClick={() => setAddProperty(!addProperty)}>
+                                Add Property
+                            </button>
+                        </div>
+                    }
+
                     <div className="relative" ref={userMenuRef}>
-                        <button onClick={() => setUserClicked(!userClicked)} className="px-3 py-2 border border-gray-200 rounded-lg hover:bg-gray-100 cursor-pointer">
-                            <UserOutlined className="text-gray-600" />
-                        </button>
-                        {userClicked && (
-                            <div className="absolute right-0 mt-3 w-52 bg-white border border-gray-100 rounded-md shadow-lg py-1 z-50">
-                                <DropdownItem icon={<TableProperties />} label="My Properties" onClick={() => router.push('/my-properties')} />
-                                <DropdownItem icon={<MapPinHouse />} label="Add property" onClick={() => setAddProperty(!addProperty)} />
-                            </div>
-                        )}
+
+                        {
+                            (!user) ?
+                                <div className="hidden lg:block">
+                                    <button className="text-orange-400 py-2 px-4 border border-orange-400 rounded-[10px] hover:bg-orange-400 hover:text-white cursor-pointer" onClick={() => router.push('/auth/login')}>
+                                        Login
+                                    </button>
+                                </div>
+                                :
+                                <>
+                                    <button onClick={() => setUserClicked(!userClicked)} className="px-3 py-2 border border-gray-200 rounded-lg hover:bg-gray-100 cursor-pointer">
+                                        <UserOutlined className="text-gray-600" />
+                                    </button>
+                                    {userClicked && (
+                                        <div className="absolute right-0 mt-3 w-52 bg-white border border-gray-100 rounded-md shadow-lg py-1 z-50">
+                                            <DropdownItem icon={<TableProperties />} label="My Properties" onClick={() => router.push('/my-properties')} />
+                                            <DropdownItem icon={<MapPinHouse />} label="Add property" onClick={() => setAddProperty(!addProperty)} />
+                                            {
+                                                (user) ?
+
+                                                    <Signout />
+                                                    : <DropdownItem icon={<LogOut />} label="Login" onClick={() => router.push('/auth/login')} />
+                                            }
+
+                                        </div>
+                                    )}
+                                </>
+                        }
                     </div>
                 </div>
             </nav>
@@ -124,7 +153,7 @@ export default function NavigationBar({ children }) {
                             <Home className="w-5 h-5" /> Home
                         </div>
                         <div onClick={() => { router.push('/properties'); setDrawerOpen(false); }} className="flex items-center gap-3 py-2 px-2 text-gray-700 hover:text-orange-500 cursor-pointer">
-                            <ListOrdered className="w-5 h-5" /> Property
+                            <ListOrdered className="w-5 h-5" /> Properties
                         </div>
                         <div onClick={() => { router.push('/about-us'); setDrawerOpen(false); }} className="flex items-center gap-3 py-2 px-2 text-gray-700 hover:text-orange-500 cursor-pointer">
                             <Info className="w-5 h-5" /> About Us

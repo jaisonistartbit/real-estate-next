@@ -38,7 +38,7 @@ const MainBanner = () => {
                                     placeholder="Place, neighbourhood, school or agent..."
                                 />
                                 <div className="flex gap-2">
-                                    <div>
+                                    <div onClick={()=>{router.push('/properties')}}>
                                         <img src="/icons/filterIcon.png" alt="Filter" className="h-[24px] w-[22px] mt-1 cursor-pointer" />
                                     </div>
                                     <button

@@ -4,8 +4,9 @@ import FlatListing from "../components/users/landing_page/flats-listing/FlatList
 import Footer from "../components/users/landing_page/footer/Footer";
 import NearCities from "../components/users/landing_page/neighbour-cities/NearCities";
 import { ToastContainer, Bounce, toast } from "react-toastify";
-
 export default function LandingPage() {
+
+
   return (
     <div className=" min-h-screen flex flex-col  ">
       <NavigationBar />
@@ -16,7 +17,7 @@ export default function LandingPage() {
       <MainBanner />
       <FlatListing />
       <NearCities />
-      
+
 
       <Footer />
       <ToastContainer

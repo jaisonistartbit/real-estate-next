@@ -161,7 +161,7 @@ const InputSelect = ({
   }, []);
   return (
     <DynamicElement
-      className={` ${hasExpand ? "expand-multiple-select-dropdown" : ""} ${feedbackType === "error" ? "input-searchable-select-error" : ""
+      className={`multi-select-input ${hasExpand ? "expand-multiple-select-dropdown" : ""} ${feedbackType === "error" ? "input-searchable-select-error" : ""
         }  input_select_tab${heightClass ? "_" + heightClass : ""} ${disabled ? "input_select_tab_disabled" : ""
         }`}
     >
