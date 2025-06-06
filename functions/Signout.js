@@ -4,8 +4,8 @@ import { createClient } from '@supabase/supabase-js';
 import { LogOut } from 'lucide-react';
 
 // Initialize Supabase client
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY; // replace with your actual anon key
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseAnonKey = process.env.SUPABASE_ANON_KEY; // replace with your actual anon key
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export const Signout = () => {
