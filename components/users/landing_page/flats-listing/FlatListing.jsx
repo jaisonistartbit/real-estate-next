@@ -1,4 +1,3 @@
-
 import CardView from './CardView';
 import ViewAllPropeties from './ViewAllPropeties';
 
@@ -10,33 +9,37 @@ const fetchProperties = async () => {
         },
         body: JSON.stringify({
             query: `
-        query GetProperties($limit: Int) {
-          getProperties(limit: $limit) {
-            id
-            name
-            location
-            total_rooms
-            total_bathroom
-            dimension
-            price
-            property_banner_image
-          }
-        }
-      `,
+                query GetProperties($limit: Int, $offset: Int) {
+                    getProperties(limit: $limit, offset: $offset) {
+                        properties {
+                            id
+                            name
+                            location
+                            total_rooms
+                            total_bathroom
+                            dimension
+                            price
+                            property_banner_image
+                        }
+                        totalCount
+                        hasMore
+                    }
+                }
+            `,
             variables: {
-                limit: 6
+                limit: 6,
+                offset: 0
             }
         }),
         cache: 'no-store',
     });
 
     const json = await res.json();
-    return json?.data?.getProperties || [];
+    return { properties: json?.data?.getProperties?.properties, hasMore: json?.data?.getProperties?.hasMore } || [];
 };
 
 export default async function FlatListing() {
-    const properties = await fetchProperties();
-
+    const { properties, hasMore } = await fetchProperties();
 
     return (
         <div className="">
@@ -53,12 +56,9 @@ export default async function FlatListing() {
                         <CardView item={property} key={property.id} />
                     ))}
                 </div>
-                {(properties ?? [])?.length == 6 &&
-                    <ViewAllPropeties />
-                }
+
+                {hasMore && <ViewAllPropeties />}
             </div>
         </div>
     );
 }
-
-
