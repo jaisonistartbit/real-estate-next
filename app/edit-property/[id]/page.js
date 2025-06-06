@@ -4,14 +4,14 @@ import NavigationBar from "@/components/users/landing_page/navbar_component/Navi
 import PropertyDetailPage from "@/components/users/property-detail-page/PropertyDetailPage";
 
 export default async function PropertyDetails({ params }) {
-    const propertyId = params?.id;
+  const propertyId = params?.id;
 
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_GRAPHQL_API}/graphql`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            query: `
+  const res = await fetch(`${process.env.NEXT_PUBLIC_GRAPHQL_API}/graphql`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      query: `
         query GetPropertyById($id: ID!) {
           getPropertyById(id: $id) {
             id
@@ -38,24 +38,30 @@ export default async function PropertyDetails({ params }) {
             city
             state
             isbooked
+            furnishing_status
+            available_for
+            available_from
+            posted_by 
+            property_age
+            amenities
             created_at
           }
         }
-      `,
-            variables: { id: propertyId }
-        }),
-        cache: 'no-store'
-    });
+      `,//furnishing_status available_for available_from posted_by property_age amenities
+      variables: { id: propertyId }
+    }),
+    cache: 'no-store'
+  });
 
-    const json = await res.json();
-    const property = json?.data?.getPropertyById;
-    console.log(property);
+  const json = await res.json();
+  const property = json?.data?.getPropertyById;
+  console.log(property);
 
-    return (
-        <>
-            <NavigationBar />
-            <EditPropertyPage property={property} />
-            <Footer />
-        </>
-    );
+  return (
+    <>
+      <NavigationBar />
+      <EditPropertyPage property={property} />
+      <Footer />
+    </>
+  );
 }
