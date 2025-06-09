@@ -49,7 +49,7 @@ export default function SignupPage() {
         const { error } = await supabase.auth.signInWithOAuth({
             provider,
             options: {
-                redirectTo: `${process.env.BRANCH == 'DEV' ? process.env.NEXT_PUBLIC_CALLBACK_URL_LIVE : location.origin}/auth/callback`
+                redirectTo: `https://real-estate-next-new.vercel.app/auth/callback`
             }
         });
         if (error) setError(error.message);
