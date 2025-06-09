@@ -37,7 +37,7 @@ export default function LoginPage() {
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: `${location.origin}/auth/callback`
+        redirectTo: `${process.env.BRANCH == 'DEV' ? process.env.NEXT_PUBLIC_CALLBACK_URL_LIVE : location.origin}/auth/callback`
       }
     });
     if (error) setError(error?.message ?? 'Invalid login credentials*');
@@ -133,7 +133,7 @@ export default function LoginPage() {
               Continue with GitHub
             </button>
           </div>
-          <div className='absolute bottom-3 right-8 text-md font-bold text-orange-500 cursor-pointer' onClick={()=>{router.push('/')}}>Skip &#10148;</div>
+          <div className='absolute bottom-3 right-8 text-md font-bold text-orange-500 cursor-pointer' onClick={() => { router.push('/') }}>Skip &#10148;</div>
         </div>
 
         {/* Right Side - Image + Text */}

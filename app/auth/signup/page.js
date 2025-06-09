@@ -49,7 +49,7 @@ export default function SignupPage() {
         const { error } = await supabase.auth.signInWithOAuth({
             provider,
             options: {
-                redirectTo: `${location.origin}/auth/callback`
+                redirectTo: `${process.env.BRANCH == 'DEV' ? process.env.NEXT_PUBLIC_CALLBACK_URL_LIVE : location.origin}/auth/callback`
             }
         });
         if (error) setError(error.message);
@@ -60,7 +60,7 @@ export default function SignupPage() {
             <div className="bg-white rounded-xl shadow-xl w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 overflow-hidden">
 
                 {/* Left Side - Form */}
-               <div className="p-8 md:px-12 pt-15 pb-20   flex flex-col justify-center relative">
+                <div className="p-8 md:px-12 pt-15 pb-20   flex flex-col justify-center relative">
                     <h1 className="text-2xl font-semibold text-gray-800 mb-6">Create your Homies account</h1>
 
                     <form className="space-y-4" onSubmit={handleSignup}>
@@ -169,7 +169,7 @@ export default function SignupPage() {
                             Continue with GitHub
                         </button>
                     </div>
-                              <div className='absolute bottom-3 right-8 text-md font-bold text-orange-500 cursor-pointer' onClick={()=>{router.push('/')}}>Skip &#10148;</div>
+                    <div className='absolute bottom-3 right-8 text-md font-bold text-orange-500 cursor-pointer' onClick={() => { router.push('/') }}>Skip &#10148;</div>
                 </div>
 
                 {/* Right Side - Image + Text */}
