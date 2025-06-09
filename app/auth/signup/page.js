@@ -6,8 +6,8 @@ import { Github } from 'lucide-react';
 import { Eye, EyeOff } from 'lucide-react';
 
 
-const supabaseUrl = 'https://appupdgxzspiysbpybcz.supabase.co';
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFwcHVwZGd4enNwaXlzYnB5YmN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwOTUyMDAsImV4cCI6MjA1OTY3MTIwMH0.5KS6T4cmosmy7-kscITPvsUKFYKU1af7-Qmn5KmIGdE'; // replace with your actual anon key
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY; // replace with your actual anon key
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 export default function SignupPage() {
     const router = useRouter();
