@@ -49,3 +49,5 @@ jobs:
         region: ${{ secrets.AWS_REGION }}
         version_label: ${{ github.sha }}
         zip_file: deploy.zip
+        s3_bucket: ${{ secrets.EB_S3_BUCKET }}
+
