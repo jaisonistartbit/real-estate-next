@@ -16,14 +16,28 @@ jobs:
       with:
         node-version: 20
 
+    - name: Log deployment configuration
+      run: |
+        echo "Deploying to AWS Elastic Beanstalk"
+        echo "Application Name: ${{ secrets.EB_APPLICATION_NAME }}"
+        echo "Environment Name: ${{ secrets.EB_ENVIRONMENT_NAME }}"
+        echo "AWS Region: ${{ secrets.AWS_REGION }}"
+        echo "Version Label (Git SHA): ${{ github.sha }}"
+
     - name: Install dependencies
       run: npm install
 
     - name: Build Next.js app
       run: npm run build
 
+
     - name: Zip application for Elastic Beanstalk
-      run: zip -r deploy.zip .ebextensions node_modules package.json package-lock.json public server.js .next
+      run: |
+        zip -r deploy.zip . -x "*.git*" "*.github*" "node_modules/*"
+
+    - name: List contents (for debug)
+      run: ls -lh deploy.zip
+
 
     - name: Deploy to Elastic Beanstalk
       uses: einaregilsson/beanstalk-deploy@v20
